@@ -53,11 +53,20 @@ function buka(opt){
 	param.unset("targetId");
 	getSync('interface.php',targetId,errorId,param);
 }
-function peringatan(opt){
+function nonghol(opt){
 	$('peringatan').show();
 	var param 		= new Hash();
 	var param     	= classToHash(opt);
 	getErr('interface.php','peringatan',param);
+}
+function peringatan(opt){
+	$('load').show();
+	var param 		= classToHash(opt);
+	var targetId	= param.get('targetId');
+	var messParam	= new Hash();
+	messParam.set('pesan',param.get('pesan'));
+	messParam.set('kelas',opt);
+	getErr('peringatan.php',targetId,messParam);
 }
 function periksa(opt){
 	$('load').show();
@@ -70,7 +79,13 @@ function periksa(opt){
 	param.unset('cekUrl');
 	if($(cekMess)!=null){
 		var errMess = $(cekMess).value;
-		$('load').hide();
+		if(errMess){
+			var param 	= 'pesan=' + errMess;
+			getErr('pesan.php','load',param);
+		}
+		else{
+			$('load').hide();
+		}
 	}
 	if(!errMess){
 		var targetUrl 	= param.get("targetUrl");
@@ -79,18 +94,12 @@ function periksa(opt){
 		getSync('interface.php',targetId,errorId,param);
 	}
 }
-
-function tutupPesan(){
-	if($('peringatan')!=null){
-		$('peringatan').remove();
-		$('load').hide();
-	}
-}
 function tutup(opt){
 	var param 	= new Hash();
 	$(opt).remove();
 	getAsync('kosong.php','peringatan',param);
 	$('peringatan').hide();
+	$('load').hide();
 }
 
 function cetakin(opt){

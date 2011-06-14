@@ -8,7 +8,7 @@
 <?php
 			break;
 		default:
-			if($trek) errorLog::logging(array("membuka form reduksi"));
+			if($trek) errorLog::logging(array("membuka form native"));
 			$periksaId 	= getToken();
 			$messId 	= getToken();
 ?>
@@ -20,7 +20,7 @@
 <input type="hidden" class="periksa" name="targetId" 	value="content"/>
 <input type="hidden" class="periksa" name="targetUrl"	value="<?php echo _FILE; 		?>"/>
 <input type="hidden" class="periksa" name="cekUrl"		value="<?php echo _PROC; 		?>"/>
-<input type="hidden" class="periksa" name="cekId"		value="<?php echo $periksaId; 	?>"/>
+<input type="hidden" class="periksa" name="cekId"		value="peringatan"/>
 <input type="hidden" class="periksa" name="cekMess"		value="<?php echo $messId; 		?>"/>
 <input type="hidden" class="periksa" name="proses" 		value="rinci"/>
 <input type="hidden" class="periksa" name="dump" 		value="0"/>

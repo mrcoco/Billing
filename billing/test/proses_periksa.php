@@ -6,4 +6,3 @@
 	}
 ?>
 <input type="hidden" id="<?php echo $cekMess?>" value="<?php echo $mess; ?>"/>
-<div class="error"><?php echo $mess; ?></div>

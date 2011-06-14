@@ -1,23 +1,32 @@
 <?php
-	require "model/setDB.php";
-	require "model/logging.php";
-	require "fungsi.php";
-	/** kode1 yang akan memindahkan semua nilai dalam array POST ke dalam */
-	/*	variabel yang bersesuaian dengan masih kunci array */
-	$nilai	= $_POST;
-	$kunci	= array_keys($nilai);
-	for($i=0;$i<count($kunci);$i++){
-		$$kunci[$i]	= $nilai[$kunci[$i]];
+	if($erno) die();
+	if(!isset($appl_tokn)) define("_TOKN",getToken());
+	$nama = "abcd";
+	for($i=1;$i<50;$i++){
+		$kode		= str_repeat('0',3 - strlen($i)).$i;
+		$data[$i] 	= array("kode" => $kode,"nama" => str_shuffle($nama.$kode));
 	}
-	/* kode1 **/
-	
-	define("_KODE",$appl_kode);
-	define("_NAME",$appl_name);
-	define("_FILE",$appl_file);
-	define("_PROC",$appl_proc);
-	define("_VIEW",$appl_view);
-	define("_TOKN",getToken());
-	
-
 ?>
 <h2><?=_NAME?></h2>
+<hr/>
+<table>
+	<tr class="table_head">
+		<td>No</td>
+		<td>Grup</td>
+	</tr>
+<?php
+	for($i=1;$i<count($data);$i++){
+		$klass 	= "table_cell1";
+		if(($i%2) == 0){
+			$klass = "table_cell2";
+		}
+?>
+	<tr class="<?php echo $klass; ?>">
+		<td><?php echo $data[$i]['kode']; 	?></td>
+		<td><?php echo $data[$i]['nama']; 	?></td>
+	</tr>
+<?php
+	}
+?>
+	<tr class="table_cont_btm"><td colspan="2">&nbsp;</td></tr>
+</table>

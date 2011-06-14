@@ -1,12 +1,12 @@
 <?php
 	/* link tulis */
-	$PHOST	= "192.168.5.103";
-	$PUSER	= "tiraos";
+	$PHOST	= "localhost";
+	$PUSER	= "root";
 	$PPASS	= "";
 	$PNAME	= "pdam_seed";
 	/* link baca */
-	$DHOST	= "192.168.5.103";
-	$DUSER	= "pdam_seed";
+	$DHOST	= "localhost";
+	$DUSER	= "root";
 	$DPASS	= "";
 	$DNAME	= "pdam_seed"
 ?>

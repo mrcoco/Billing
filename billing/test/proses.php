@@ -14,6 +14,13 @@
 		$klas = "error";
 	}
 	switch($proses){
+		case "hapus":
+			$klas 	= "notice";
+			$mess	= "Data telah dihapus";
+?>
+<fieldset class="<?php echo $klas; ?>"><?php echo $mess; ?></fieldset>
+<?php
+			break;
 		case "rinci":
 			$que0 = "CALL p_cek_drd('$pel_no',$rek_bln,$rek_thn,@mess)";
 			$que1 = "SELECT @mess AS mess";
@@ -39,7 +46,6 @@
 			}
 ?>
 <input type="hidden" id="<?php echo $cekMess; ?>" value="<?php echo $mess; ?>"/>
-<fieldset class="<?php echo $klas; ?>"><?php echo $mess; ?></fieldset>
 <?php
 			break;
 	}

@@ -22,13 +22,14 @@
 	define("_NAME",$appl_name);
 	define("_FILE",$appl_file);
 	define("_PROC",$appl_proc);
+	define("_USER","admin");
 	if(isset($appl_tokn)) define("_TOKN",$appl_tokn);
 	/* predefine parameter **/
 
 	/* periksa proses php aktif */
 	if(isset($cekUrl)){
 		$proc = $cekUrl;
-		$dump = false;
+		//$dump = false;
 	}
 	else if(isset($errorUrl)){
 		$proc = $errorUrl;
