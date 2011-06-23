@@ -1,43 +1,75 @@
 <?php
 	if($erno) die();
-	if(!isset($appl_tokn)) define("_TOKN",getToken());
+	define("_TOKN",getToken());
+	
 	switch($proses){
-		case "periksaDSR":
-			echo "Harusnya halaman proses Reduksi";
-			break;
-		default:
-			$data1[]	= array("rek_bln"=>"1","bln_nama"=>"Januari");
-			$data1[]	= array("rek_bln"=>"2","bln_nama"=>"Februari");
-			$parm1		= array("class"=>"cekDSR","name"=>"rek_bln","selected"=>5);
+		case "rinci":
 ?>
-<h2><?php echo _NAME; ?></h2><hr/>
-<input type="hidden" class="cekDSR" name="appl_kode" 	value="<?php echo _KODE; ?>"/>
-<input type="hidden" class="cekDSR" name="appl_name" 	value="<?php echo _NAME; ?>"/>
-<input type="hidden" class="cekDSR" name="appl_file" 	value="<?php echo _FILE; ?>"/>
-<input type="hidden" class="cekDSR" name="appl_proc" 	value="<?php echo _PROC; ?>"/>
-<input type="hidden" class="cekDSR" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
-<input type="hidden" class="cekDSR" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
-<input type="hidden" class="cekDSR" name="targetId" 	value="content"/>
-<input type="hidden" class="cekDSR" name="proses"	 	value="periksaDSR"/>
-<input type="hidden" class="cekDSR" name="dump" 		value="0"/>
-<div class="span-4 border">&nbsp;</div>
-<div class="span-4">Nomor Pelanggan</div>
-<div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6"/></div>
-<br/><br/>
-<div class="span-4 border">&nbsp;</div>
-<div class="span-4">Bulan - Tahun</div>
-<div class="span-4">
-	: 
-	<?php echo pilihan($data1,$parm1); ?>
-	<input type="text" class="cekDSR" name="rek_thn" size="4" maxlength="4" value="2011"/>
-</div>
-<br/><br/>
-<div class="span-12 center">
-	<input type="hidden" class="cekDSR" name="cekUrl" 	value="<?php echo _PROC; ?>"/>
-	<input type="hidden" class="cekDSR" name="cekId" 	value="peringatan"/>
-	<input type="hidden" class="cekDSR" name="cekMess" 	value="<?php echo getToken(); ?>"/>
-	<input type="Button" value="Cek Rekening" onclick="periksa('cekDSR')"/>
-</div>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+
+<?php
+		break;
+		default:
+			if($trek) errorLog::logging(array("membuka form reduksi"));
+			$periksaId 	= getToken();
+			$messId 	= getToken();
+?>
+<input type="hidden" class="periksa" name="appl_kode"	value="<?php echo _KODE; 		?>"/>
+<input type="hidden" class="periksa" name="appl_name"	value="<?php echo _NAME; 		?>"/>
+<input type="hidden" class="periksa" name="appl_file"	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="periksa" name="appl_proc"	value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="periksa" name="appl_tokn"	value="<?php echo _TOKN; 		?>"/>
+<input type="hidden" class="periksa" name="targetId" 	value="content"/>
+<input type="hidden" class="periksa" name="targetUrl"	value="proses_reduksi.php"/>
+<input type="hidden" class="periksa" name="cekUrl"		value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="periksa" name="cekId"		value="<?php echo $periksaId; 	?>"/>
+<input type="hidden" class="periksa" name="cekMess"		value="<?php echo $messId; 		?>"/>
+<input type="hidden" class="periksa" name="proses" 		value="rinci"/>
+<input type="hidden" class="periksa" name="dump" 		value="0"/>
+<div class="prepend-6 append-6">
+<h2><?=_NAME?></h2><hr/>
+<span id="<?php echo $periksaId; ?>"></span>
+ <table width="500" align="center">
+    <tr valign="top" > 
+    <td class="box"> 
+        <table width="450" >
+          <tr> 
+            <td width="29%" class="form_title">No. Pelanggan</td>
+            <td width="71%">: 
+            <input type="text" size="6" class="periksa" name="pel_no" maxlength="6" value="0000333"/></td>
+          </tr>         
+          <tr> 
+           <td width="29%" class="form_title">Bulan - Tahun</td>
+            <td width="71%">:
+              <select name="bulan" id="bulan">
+                <option selected="selected" value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <option value="Maret">Maret</option>
+                <option value="April">April</option>
+                <option value="Mei">Mei</option>
+                <option value="Juni">Juni</option>
+                <option value="Juli">Juli</option>
+                <option value="Agustus">Agustus</option>
+                <option value="September">September</option>
+                <option value="Oktober">Oktober</option>
+                <option value="November">November</option>
+                <option value="Desember">Desember</option>
+              </select> -
+            <input type="text" size="4" class="periksa" name="rek_thn" maxlength="4" value="2011"/>
+            </span></td>
+          </tr>
+	</table>
+      </td>
+    </tr>
+	<tr> 
+    <tr> 
+      <td align=center  class="box" ><span class="prepend-top prepend-3">
+      <input name="button" type="button" class="form_button" onclick="periksa('periksa')" value="Cek Rekening"/></span></td>
+   </tr>
+
+    </tr>
+</table>
+
 <?php
 	}
 ?>
