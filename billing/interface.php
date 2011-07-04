@@ -2,6 +2,7 @@
 	require "model/setDB.php";
 	require "model/logging.php";
 	require "fungsi.php";
+	require "lib.php";
 	/** getParam 
 		memindahkan semua nilai dalam array POST ke dalam
 		variabel yang bersesuaian dengan masih kunci array
@@ -24,6 +25,7 @@
 	define("_PROC",$appl_proc);
 	define("_USER","admin");
 	if(isset($appl_tokn)) define("_TOKN",$appl_tokn);
+	else define("_TOKN",getToken());
 	/* predefine parameter **/
 
 	/* periksa proses php aktif */
