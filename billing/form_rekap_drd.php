@@ -6,7 +6,6 @@
 			echo "Halaman Rekap DRD";
 	?>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-
 	<fieldset>
 	<table width="200" border="1">
   <tr class="table_cell1">
