@@ -10,7 +10,7 @@
 	<table width="200" border="1">
   <tr class="table_cell1">
     <td width="13%" class="center"><img src="images/headerleft.jpg" width="104" height="65" /></td>
-    <td colspan="6" class="center"><h1 class="title_form">PERUSAHAAN DAERAH AIR MINUM-CABANG K.P Cimahi </h1></td>
+    <td colspan="6" class="center"><h1 class="title_form">PERUSAHAAN DAERAH AIR MINUM-CABANG K.P Cimahi </h1><hr /></td>
   </tr>
   <tr class="table_cell1">
     <td colspan="7" class="center"><h1>REKAP DRD</h1> </td>
@@ -87,10 +87,10 @@ break;
    			$data1[] = array("rek_bln"=>"6","bln_nama"=>"Juni");
    			$data1[] = array("rek_bln"=>"7","bln_nama"=>"Juli");
 			$data1[] = array("rek_bln"=>"8","bln_nama"=>"Agustus");
-			$data1[] = array("rek_bln"=>"2","bln_nama"=>"September");
-			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Oktober");
-			$data1[] = array("rek_bln"=>"2","bln_nama"=>"November");
-			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Desember");
+			$data1[] = array("rek_bln"=>"9","bln_nama"=>"September");
+			$data1[] = array("rek_bln"=>"10","bln_nama"=>"Oktober");
+			$data1[] = array("rek_bln"=>"11","bln_nama"=>"November");
+			$data1[] = array("rek_bln"=>"12","bln_nama"=>"Desember");
 			$parm1	 = array("class"=>"rekapDRD","name"=>"rek_bln","selected"=>6);
 ?>
 
@@ -113,7 +113,7 @@ break;
 <input type="hidden" class="rekapDRD" name="dump" 		value="0"/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Kota Pelayanan</div>
-<div class="span-4">: <input type="text" class="rekapDRD" name="" size="6" maxlength="6"/></div>
+<div class="span-4">: <input type="text" class="rekapDRD" name="kp_kode" size="18" maxlength="18"/></div>
 <br/><br/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Bulan - Tahun</div>
