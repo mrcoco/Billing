@@ -28,8 +28,8 @@ break;
 		default:
 	/* pilih kota pelayanan */
 	try{
-		$que 	= "SELECT kp_kode,CONCAT('[',kp_kode,'] ',kp_ket) AS kp_ket FROM tr_kota_pelayanan ORDER BY kp_kode";
-		if(!$res2 = mysql_query($que,$link)){
+		$que0 	= "SELECT kp_kode,CONCAT('[',kp_kode,'] ',kp_ket) AS kp_ket FROM tr_kota_pelayanan ORDER BY kp_kode";
+		if(!$res2 = mysql_query($que0,$link)){
 			throw new Exception("Terjadi kesalahan pada sistem database<br/>Nomor Tiket : ".substr(_TOKN,-4));
 		}
 		else{
@@ -40,7 +40,7 @@ break;
 		}
 	}
 	catch (Exception $e){
-		errorLog::errorDB(array($que));
+		errorLog::errorDB(array($que0));
 		$error_mess	= $e->getMessage();
 		$show_form 	= false;
 	}
@@ -48,26 +48,44 @@ break;
 ?>
 <link href="css/style.css" rel="stylesheet" type="text/css">
 <h2>Proses DRD</h2><hr/>
-<input type="hidden" id="<?php echo $errorId; ?>" value="<?php echo $mess; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_kode" 	value="<?php echo _KODE; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_name" 	value="<?php echo _NAME; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_file" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_proc" 	value="<?php echo _PROC; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
-<input type="hidden" class="prosesDRD" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
+<input type="hidden" class="prosesDRD" name="targetUrl" 	value="<?php echo _PROC; ?>"/>
 <input type="hidden" class="prosesDRD" name="targetId" 	value="content"/>
 <input type="hidden" class="prosesDRD" name="proses"	 	value="prosesDRD"/>
-<<<<<<< HEAD
-<input type="hidden" class="prosesDRD" name="dump" 		value="1"/>
-=======
 <input type="hidden" class="prosesDRD" name="dump" 		value="0"/>
 <div class="prepend-4 border"></div>
->>>>>>> 811b0f7... asd
 <div class="span-5 center">Kota Pelayanan  </div>
 <div class="span-7 center">:
   <?php echo pilihan($data2,$param2);  ?>
   </div>
-<br /><br/>
+<div class="span-10"><table width="200" border="1">
+  <tr>
+    <td colspan="3">Resume Proses DRD </td>
+    </tr>
+  <tr class="table_head">
+    <td class="center">Golongan</td>
+    <td class="center">Lembar</td>
+    <td class="center">Rupiah</td>
+  </tr>
+  <tr class="table_cell1">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="table_cell2">
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr class="table_validator">
+    <td colspan="3" class="table_validator center">Total</td>
+    </tr>
+</table>
+</div><br /><br/>
 <div class="span-12 center">
 	<input type="hidden" class="prosesDRD" name="cekUrl" 	value="<?php echo _PROC; ?>"/>
 	<input type="hidden" class="prosesDRD" name="cekId" 	value="peringatan"/>
