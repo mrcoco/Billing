@@ -111,7 +111,7 @@
 			}
 			/** retrieve catatan klaim */
 			try{
-				$que4 = "SELECT *FROM tm_claim WHERE pel_no='$pel_no' AND ABS(SUBSTR(rek_nomor,5,2))=$rek_bln AND SUBSTR(rek_nomor,1,4)=$rek_thn ORDER BY cl_tgl";
+				$que4 = "SELECT *FROM v_lap_klaim WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn ORDER BY cl_tgl";
 				if(!$res4 = mysql_query($que4,$link)){
 					throw new Exception($que4);
 				}
@@ -181,7 +181,7 @@
 <input type="hidden" class="hitung"	name="cekMess" 		value="<?php echo $cekMess;				?>"/>
 <input type="hidden" class="hitung"	name="cekId" 		value="peringatan"/>
 <input type="hidden" class="hitung" name="proses" 		value="hitung"/>
-<table class="table_info">
+<table>
 	<tr>
 		<td>No. Pelanggan</td>
 		<td><?php echo ": ".$row0['pel_no']; 	?></td>
@@ -202,6 +202,39 @@
 	</tr>
 </table>
 <hr>
+<h3>CATATAN :</h3>
+<table>
+	<tr class="table_head">
+		<td>Tanggal Klaim</td>
+		<td>Stan Lalu Awal</td>
+		<td>Stan Kini Awal</td>
+		<td>Stan Kini Akhir</td>
+		<td>Uang Air Awal</td>
+		<td>Uang Air Akhir</td>
+		<td>Selisih Uang Air</td>
+	</tr>
+<?php
+			for($i=0;$i<count($data4);$i++){
+				$row4 = $data4[$i];
+				$klas 	= "table_cell1";
+				if(($i%2) == 0){
+					$klas = "table_cell2";
+				}
+				$cl_uangair_selisih = $row4['cl_uangair_akhir'] - $row4['cl_uangair_awal'];
+?>
+	<tr class="<?php echo $klas; ?>">
+		<td><?php echo $row4['tgl_klaim']; ?></td>
+		<td><?php echo number_format($row4['cl_stanlalu_awal']); 	?></td>
+		<td><?php echo number_format($row4['cl_stankini_awal']);	?></td>
+		<td><?php echo number_format($row4['cl_stankini_akhir']);	?></td>
+		<td><?php echo number_format($row4['cl_uangair_awal']);		?></td>
+		<td><?php echo number_format($row4['cl_uangair_akhir']);	?></td>
+		<td><?php echo number_format($cl_uangair_selisih);			?></td>
+	</tr>
+<?php
+			}
+?>
+</table>
 <h3>KOREKSI :</h3>
 <table>
 	<tr class="table_head"> 
@@ -293,7 +326,7 @@
 			for($i=1;$i<13;$i++){
 				$data1[]	= array("rek_bln"=>$i,"bln_nama"=>$bulan[$i]);
 			}
-			$parm1		= array("class"=>"rinci","name"=>"rek_bln","selected"=>date('n'));
+			$parm1		= array("class"=>"rinci","name"=>"rek_bln","selected"=>"4");
 			$cekMess	= getToken();
 ?>
 <h2><?php echo _NAME; ?></h2>
@@ -311,12 +344,12 @@
 <div class="prepend-4 span-9">
 	<div class="span-4">Nomor Pelanggan</div>
 	<div class="span-4">
-		: <input type="text" class="rinci" name="pel_no" size="6" maxlength="6" value="001796"/>
+		: <input type="text" class="rinci" name="pel_no" size="6" maxlength="6" value="016021"/>
 	</div>
 	<div class="span-4 prepend-top">Bulan - Tahun</div>
 	<div class="span-4 prepend-top">
 		: <?php echo pilihan($data1,$parm1); ?>
-		<input type="text" class="rinci" name="rek_thn" size="4" maxlength="4" value="1999"/>
+		<input type="text" class="rinci" name="rek_thn" size="4" maxlength="4" value="2011"/>
 	</div>
 	<div class="prepend-4 span-4 prepend-top">
 		&nbsp;<input type="Button" value="Cek Rekening" onclick="periksa('rinci')"/>
