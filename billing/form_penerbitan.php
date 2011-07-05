@@ -2,10 +2,6 @@
  
 	if($erno) die();
 	if(!isset($appl_tokn)) define("_TOKN",getToken());
-	switch($proses){
-		case "prosesDRD":
-			echo "penerbitan DRD";
-			
 	
 	$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
 	$link 	= mysql_connect($DHOST,$DUSER,$DPASS) or die(errorLog::errorDie(array($mess)));
@@ -19,6 +15,12 @@
 		$mess = "Terjadi kesalahan pada sistem<br/>Nomor Tiket : ".substr(_TOKN,-4);
 		$klas = "error";
 	}
+	
+	switch($proses){
+		case "prosesDRD":
+			echo "penerbitan DRD";
+			
+	
 ?>
 <link href="css/style.css" rel="stylesheet" type="text/css">
 
@@ -53,15 +55,23 @@ break;
 <input type="hidden" class="prosesDRD" name="appl_file" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_proc" 	value="<?php echo _PROC; ?>"/>
 <input type="hidden" class="prosesDRD" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
-<input type="hidden" class="prosesDRD" name="targetUrl" 	value="<?php echo _PROC; ?>"/>
+<input type="hidden" class="prosesDRD" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="prosesDRD" name="targetId" 	value="content"/>
 <input type="hidden" class="prosesDRD" name="proses"	 	value="prosesDRD"/>
 <input type="hidden" class="prosesDRD" name="dump" 		value="0"/>
 <div class="prepend-4 border"></div>
-<div class="span-5 center">Kota Pelayanan  </div>
-<div class="span-7 center">:
-  <?php echo pilihan($data2,$param2);  ?>
-  </div>
+
+<div class="span-5 center">Kota Pelayanan :  </div>
+<div class="span-5 center">
+  <p><?php echo pilihan($data2,$param2);  ?></p>
+  <p><span class="span-12 center">
+    <input type="hidden" class="prosesDRD" name="cekUrl" 	value="<?php echo _PROC; ?>"/>
+    <input type="hidden" class="prosesDRD" name="cekId" 	value="peringatan"/>
+    <input type="hidden" class="prosesDRD" name="cekMess" 	value="<?php echo getToken(); ?>"/>
+    <input name="Button" type="Button" onclick="periksa('prosesDRD')" value="Proses"/>
+  </span> </p>
+</div>
+
 <div class="span-10"><table width="200" border="1">
   <tr>
     <td colspan="3">Resume Proses DRD </td>
@@ -86,12 +96,7 @@ break;
     </tr>
 </table>
 </div><br /><br/>
-<div class="span-12 center">
-	<input type="hidden" class="prosesDRD" name="cekUrl" 	value="<?php echo _PROC; ?>"/>
-	<input type="hidden" class="prosesDRD" name="cekId" 	value="peringatan"/>
-	<input type="hidden" class="prosesDRD" name="cekMess" 	value="<?php echo getToken(); ?>"/>
-	<input type="Button" value="Proses" onClick="periksa('prosesDRD')"/>
-</div>
+<div class="span-12 center"></div>
 <div class="prepend-4 border"></div>
 <?php
 	}
