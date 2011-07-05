@@ -30,7 +30,7 @@ break;
 	try{
 		$que 	= "SELECT kp_kode,CONCAT('[',kp_kode,'] ',kp_ket) AS kp_ket FROM tr_kota_pelayanan ORDER BY kp_kode";
 		if(!$res2 = mysql_query($que,$link)){
-			throw new Exception("Terjadi kesalahan pada sistem database<br/>Nomor Tiket : ");
+			throw new Exception("Terjadi kesalahan pada sistem database<br/>Nomor Tiket : ".substr(_TOKN,-4));
 		}
 		else{
 			while($row2 = mysql_fetch_array($res2)){
@@ -57,7 +57,12 @@ break;
 <input type="hidden" class="prosesDRD" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="prosesDRD" name="targetId" 	value="content"/>
 <input type="hidden" class="prosesDRD" name="proses"	 	value="prosesDRD"/>
+<<<<<<< HEAD
 <input type="hidden" class="prosesDRD" name="dump" 		value="1"/>
+=======
+<input type="hidden" class="prosesDRD" name="dump" 		value="0"/>
+<div class="prepend-4 border"></div>
+>>>>>>> 811b0f7... asd
 <div class="span-5 center">Kota Pelayanan  </div>
 <div class="span-7 center">:
   <?php echo pilihan($data2,$param2);  ?>
