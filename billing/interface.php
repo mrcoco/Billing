@@ -24,6 +24,7 @@
 	define("_FILE",$appl_file);
 	define("_PROC",$appl_proc);
 	define("_USER","admin");
+	define("_HOST",$_SERVER['REMOTE_ADDR']);
 	if(isset($appl_tokn)) define("_TOKN",$appl_tokn);
 	else define("_TOKN",getToken());
 	/* predefine parameter **/

@@ -121,7 +121,9 @@ function tutup(opt){
 	getAsync('kosong.php','peringatan',param);
 	$('peringatan').hide();
 	$('load').hide();
-	anyar('refresh');
+	if (param.get('refresh') = 1){
+		anyar('refresh');
+	}
 }
 
 function cetakin(opt){

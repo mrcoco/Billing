@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="js/kontrol.js"></script>
 </head>
 <body>
-<div id="load" class="load"><center><img src="./images/tirta-load.gif"/></center></div>
+<div id="load" class="load"></div>
 <div id="peringatan" class="load"></div>
 <div id="container" class="container">
 	<div id="header" class="header"></div>
