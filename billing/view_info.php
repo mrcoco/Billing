@@ -30,12 +30,20 @@
 		$next_page 	= 2;
 		$pref_page 	= 1;
 	}
-	$jml_perpage 	= 15;
+	$jml_perpage 	= 7;
 	$limit_awal	 	= ($pg - 1) * $jml_perpage;
 	
 	/** retrieve view rayon */
+	if(isset($kode)) $proses = "cari";
+	switch($proses){
+		case "cari":
+			$que0 = "SELECT *FROM tr_dkd WHERE dkd_kd LIKE '%$kode%' OR dkd_jalan LIKE '%$kode%' OR dkd_pembaca LIKE '%$kode%' LIMIT $limit_awal,$jml_perpage";
+			unset($proses);
+			break;
+		default :
+			$que0 = "SELECT *FROM tr_dkd WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
+	}
 	try{
-		$que0 = "SELECT *FROM tr_dkd WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
 		if(!$res0 = mysql_query($que0,$link)){
 			throw new Exception($que0);
 		}
@@ -57,20 +65,36 @@
 		$mess = $e->getMessage();
 	}
 	if(!$erno) mysql_close($link);
+	switch($proses){
+		default:
 ?>
 <h2><?php echo _NAME?></h2>
-<input type="hidden" id="errorId"/>
-<table class="table_info" >
+<input type="hidden" id="<?php echo $errorId; ?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="errorId"   	value="<?php echo getToken();	?>"/>
+<input type="hidden" class="cari next_page pref_page" name="targetId"  	value="content"/>
+<input type="hidden" class="next_page" name="pg" value="<?php echo $next_page; ?>"/>
+<input type="hidden" class="pref_page" name="pg" value="<?php echo $pref_page; ?>"/>
+<table class="table_info">
 	<tr class="table_cont_btm">
-		<td colspan="7" class="right">Hal : <?php echo $pg; ?></td>
+		<td colspan="5">
+			Pencarian :
+			<input type="text" class="cari next_page pref_page" name="kode" value="<?php echo $kode; ?>" onchange="buka('cari')" size="10" title="Pencarian berdasarkan kode rayon, petugas, atau jalan"/>
+		</td>
+		<td class="right">Halaman : <?php echo $pg; ?></td>
 	</tr>
-	<tr class="table_cont_btm"> 
-		<td width="5%">No</td>
-		<td width="10%">Kode</td>   
-		<td width="9%">Tgl Catat</td>        
-		<td width="18%">Nama Petugas</td>
-		<td width="38%">Jalan</td>
-		<td width="20%">Manage</td>
+	<tr class="table_head"> 
+		<td>No</td>
+		<td>Kode</td>   
+		<td>Tgl Catat</td>        
+		<td>Nama Petugas</td>
+		<td>Jalan</td>
+		<td>Manage</td>
 	</tr>
 <?php
 	for($i=0;$i<count($data);$i++){
@@ -109,18 +133,10 @@
 	<tr class="table_cont_btm">
 		<td colspan="5" class="left"></td>
 		<td class="right">
-			<input type="hidden" class="next_page pref_page" name="appl_kode" value="<?php echo _KODE; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="appl_name" value="<?php echo _NAME; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="appl_file" value="<?php echo _FILE; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="appl_proc" value="<?php echo _PROC; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="appl_tokn" value="<?php echo _TOKN; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="targetUrl" value="<?php echo _FILE; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="targetId"  value="content"/>
-			<input type="hidden" class="next_page pref_page" name="errorId"   value="errMess"/>
-			<input type="hidden" class="next_page" name="pg" value="<?php echo $next_page; ?>"/>
-			<input type="hidden" class="pref_page" name="pg" value="<?php echo $pref_page; ?>"/>
-			<?php echo $pref_mess; ?>
-			<?php echo $next_mess; ?>
+			&nbsp;<?php echo $pref_mess." ".$next_mess; ?>
 		</td>
 	</tr>
 </table>
+<?php
+	}
+?>

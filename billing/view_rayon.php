@@ -1,127 +1,142 @@
 <?php
-	if(!$form) die();
-	
+	if($erno) die();
+	if(!isset($appl_tokn)) define("_TOKN",getToken());
+	$kp_kode = 10;
+
+	/* koneksi database */
+	/* link : link baca */
+	$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
+	$link 	= mysql_connect($DHOST,$DUSER,$DPASS) or die(errorLog::errorDie(array($mess)));
+	try{
+		if(!mysql_select_db($DNAME,$link)){
+			throw new Exception("user : ".$DUSER." tidak bisa terhubung ke database : ".$DNAME);
+		}
+	}
+	catch (Exception $e){
+		errorLog::errorDB(array($e->getMessage()));
+		$mess = "Terjadi kesalahan pada sistem<br/>Nomor Tiket : ".substr(_TOKN,-4);
+		$klas = "error";
+		$erno = false;
+	}
+
 	/** Pagination */
 	if(isset($pg) and $pg>1){
 		$next_page 	= $pg + 1;
 		$pref_page 	= $pg - 1;
-		$pref_mess	= "<input type=\"button\" name=\"Submit\" value=\"<<\" class=\"form_button\" onClick=\"buka('pref_page')\"/>";
+		$pref_mess	= "<input type=\"button\" value=\"<<\" class=\"form_button\" onClick=\"buka('pref_page')\"/>";
 	}
 	else{
 		$pg 		= 1;
 		$next_page 	= 2;
 		$pref_page 	= 1;
 	}
-	$jml_perpage 	= 6;
+	$jml_perpage 	= 7;
 	$limit_awal	 	= ($pg - 1) * $jml_perpage;
-	/* */
-
-	/** predefine parameter */
-	$kp_kode = 10;
-?>
-<h2><?php echo _NAME?></h2>
-<table class="table_info" >
-	<tr class="table_cont_btm">
-		<td colspan="7" class="right">Hal : <?php echo $pg; ?></td>
-	</tr>
-	<tr class="table_head"> 
-		<td width="5%">No</td>
-		<td width="10%">Kode</td>   
-		<td width="9%">Tgl Catat</td>        
-		<td width="18%">Nama Petugas</td>
-		<td width="38%">Jalan</td>
-		<td width="20%">Manage</td>
-	</tr>
-<?php
-	/** koneksi database */
-	$mess = "tidak bisa terhubung ke server : ".$DHOST;
-	$link = mysql_connect($DHOST,$DUSER,$DPASS) or die(errorLog::errorDB(array($mess)));
-	mysql_select_db($DNAME,$link);
 	
-	/* inquiry informasi rayon */
+	/** retrieve view rayon */
+	if(isset($kode)) $proses = "cari";
+	switch($proses){
+		case "cari":
+			$que0 = "SELECT *FROM tr_dkd WHERE dkd_kd LIKE '%$kode%' OR dkd_jalan LIKE '%$kode%' OR dkd_pembaca LIKE '%$kode%' LIMIT $limit_awal,$jml_perpage";
+			unset($proses);
+			break;
+		default :
+			$que0 = "SELECT *FROM tr_dkd WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
+	}
 	try{
-		$que0 = "SELECT *FROM tr_dkd WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
 		if(!$res0 = mysql_query($que0,$link)){
-			throw new Exception("Terjadi kesalahan pada sistem database<br/>Nomor Tiket : ".substr(_TOKN,-4));
+			throw new Exception($que0);
 		}
 		else{
-			$i = 1;
+			$i = 0;
 			while($row0 = mysql_fetch_array($res0)){
-				$class_nya = "table_cell1";
-				if (($i%2) == 0){
-					$class_nya = "table_cell2";
-				}
-				$nomor = $i+(($pg-1)*$jml_perpage);
-				$kelas = "rinci_$i import_$i";
+				$data[] = $row0;
+				$i++;
+			}
+			/*	pagination : menentukan keberadaan operasi next page	*/
+			if($i==$jml_perpage){
+				$next_mess	= "<input type=\"button\" value=\">>\" class=\"form_button\" onClick=\"buka('next_page')\"/>";
+			}
+			$mess = false;
+		}
+	}
+	catch (Exception $e){
+		errorLog::errorDB(array($que0));
+		$mess = $e->getMessage();
+	}
+	if(!$erno) mysql_close($link);
+	switch($proses){
+		default:
 ?>
-	<tr valign="top" class="<?php echo $class_nya; ?>">
+<h2><?php echo _NAME?></h2>
+<input type="hidden" id="<?php echo $errorId; ?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="cari next_page pref_page" name="errorId"   	value="<?php echo getToken();	?>"/>
+<input type="hidden" class="cari next_page pref_page" name="targetId"  	value="content"/>
+<input type="hidden" class="next_page" name="pg" value="<?php echo $next_page; ?>"/>
+<input type="hidden" class="pref_page" name="pg" value="<?php echo $pref_page; ?>"/>
+<table class="table_info">
+	<tr class="table_cont_btm">
+		<td colspan="5">
+			Pencarian :
+			<input type="text" class="cari next_page pref_page" name="kode" value="<?php echo $kode; ?>" onchange="buka('cari')" size="10" title="Pencarian berdasarkan kode rayon, petugas, atau jalan"/>
+		</td>
+		<td class="right">Halaman : <?php echo $pg; ?></td>
+	</tr>
+	<tr class="table_head"> 
+		<td>No</td>
+		<td>Kode</td>   
+		<td>Tgl Catat</td>        
+		<td>Nama Petugas</td>
+		<td>Jalan</td>
+		<td>Manage</td>
+	</tr>
+<?php
+	for($i=0;$i<count($data);$i++){
+		$row0 = $data[$i];
+		$nomor	= ($i+1)+(($pg-1)*$jml_perpage);
+		$klas 	= "table_cell1";
+		if(($i%2) == 0){
+			$klas = "table_cell2";
+		}
+?>
+	<tr valign="top" class="<?php echo $klas; ?>">
 		<td><?php echo $nomor;				?></td>
 		<td><?php echo $row0['dkd_kd'];		?></td>
 		<td><?php echo $row0['dkd_tcatat']; ?></td>
 		<td><?php echo $row0['dkd_pembaca'];?></td>
 		<td><?php echo $row0['dkd_jalan'];	?></td>
 		<td>
-			<span id="errId_<?php echo $i; ?>"></span>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="appl_kode"	value="<?php echo _KODE; ?>"/>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="appl_name"	value="<?php echo _NAME; ?>"/>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="appl_file"	value="<?php echo _FILE; ?>"/>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="appl_proc"	value="<?php echo _PROC; ?>"/>
-			<input type="hidden" class="<?php echo $kelas; ?>" 	name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="kembali" 		value="<?php echo $pg; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="targetUrl" 	value="rinci_rayon.php"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="targetId" 	value="content"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="errorId"   	value="errMess"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="nomor"   		value="<?php echo $i; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="cekUrl"   	value="cek_rinci_rayon.php"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="cekId"   		value="errId_<?php echo $i; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" 	name="cekMess"		value="cekMess_<?php echo $i; ?>"/>
-			<input type="hidden" class="import_<?php echo $i; ?>" 	name="errorUrl"		value="import_pelanggan.php"/>
-			<img src="./images/edit.gif" title="Lihat Rincian" onclick="periksa('rinci_<?php echo $i; ?>')"/>
-			<img src="./images/proses.gif" title="Import Data" onclick="peringatan('import_<?php echo $i; ?>')"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_kode"	value="<?php echo _KODE; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_name"	value="<?php echo _NAME; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_file"	value="<?php echo _FILE; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_proc"	value="<?php echo _PROC; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kembali" 	value="<?php echo $pg; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="rinci_info.php"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetId" 	value="content"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="errMess"/>
+			<img src="./images/edit.gif" title="Lihat Rincian"/>
 		</td>
 	</tr>
 
 <?php
-				$i++;
-			}
-			/* Pagination */
-			if($i>($jml_perpage)){
-				$next_mess	= "<input type=\"button\" name=\"Submit\" value=\">>\" class=\"form_button\" onClick=\"buka('next_page')\"/>";
-			}
-			/* Pagination **/
-		}
+
 	}
-	catch (Exception $e){
-		errorLog::errorDB(array($que0));
-		$mess = "value = \"".$e->getMessage()."\"";
-	}
-	
-	mysql_close($link);
-	/* koneksi database **/
 ?>
 	<tr class="table_cont_btm">
-		<td colspan="5" class="left">
-			<span id="add_pelanggan">
-				<input type="hidden" class="tambah" name="errorUrl" value="form_pelanggan.php"/>
-				<input type="hidden" class="tambah" name="proses" 	value="add_pelanggan"/>
-				<input type="button" class="form_button" value="Tambah Pelanggan" onclick="peringatan('tambah')"/>
-			</span>
-		</td>
+		<td colspan="5" class="left"></td>
 		<td class="right">
-			<input type="hidden" id="errMess" <?php echo $mess; ?>/>
-			<input type="hidden" class="tambah next_page pref_page" name="appl_kode" value="<?php echo _KODE; ?>"/>
-			<input type="hidden" class="tambah next_page pref_page" name="appl_name" value="<?php echo _NAME; ?>"/>
-			<input type="hidden" class="tambah next_page pref_page" name="appl_file" value="<?php echo _FILE; ?>"/>
-			<input type="hidden" class="tambah next_page pref_page" name="appl_proc" value="<?php echo _PROC; ?>"/>
-			<input type="hidden" class="tambah next_page pref_page" name="appl_tokn" value="<?php echo _TOKN; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="targetUrl" value="<?php echo _FILE; ?>"/>
-			<input type="hidden" class="next_page pref_page" name="targetId"  value="content"/>
-			<input type="hidden" class="next_page pref_page" name="errorId"   value="errMess"/>
-			<input type="hidden" class="next_page" name="pg" value="<?php echo $next_page; ?>"/>
-			<input type="hidden" class="pref_page" name="pg" value="<?php echo $pref_page; ?>"/>
-			<?php echo $pref_mess; ?>
-			<?php echo $next_mess; ?>
+			&nbsp;<?php echo $pref_mess." ".$next_mess; ?>
 		</td>
 	</tr>
 </table>
+<?php
+	}
+?>

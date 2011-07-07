@@ -377,3 +377,4 @@
 2011-07-05 09:38:49;1107050938495579;030101;admin;_HOST;SELECT kp_kode,CONCAT('[',kp_kode,'] ',kp_ket) AS kp_ket FROM tr_kota_pelayanan ORDER BY kp_kode
 2011-07-05 09:41:39;_TOKN;040301;admin;_HOST;File proses : form_klaim.php tidak ditemukan
 >>>>>>> 811b0f7... asd
+2011-07-05 18:09:37;1107051809118104;030101;admin;127.0.0.1;File proses : penerbitan_drd.php tidak ditemukan

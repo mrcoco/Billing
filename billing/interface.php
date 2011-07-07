@@ -12,6 +12,7 @@
 	for($i=0;$i<count($kunci);$i++){
 		$$kunci[$i]	= $nilai[$kunci[$i]];
 	}
+	unset($kunci);
 	/* getParam **/
 	
 	/** predefine parameter */
