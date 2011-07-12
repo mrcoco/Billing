@@ -1,7 +1,6 @@
 <?php
 	require "model/setDB.php";
 	require "model/logging.php";
-	require "fungsi.php";
 	/** kode1 yang akan memindahkan semua nilai dalam array POST ke dalam */
 	/*	variabel yang bersesuaian dengan masih kunci array */
 	$nilai	= $_POST;
@@ -10,7 +9,6 @@
 		$$kunci[$i]	= $nilai[$kunci[$i]];
 	}
 	/* kode1 **/
-	
 	define("_KODE","000000");
 	define("_TOKN",getToken());
 	$erno = false;
@@ -28,7 +26,7 @@
 	}
 	
 	try{
-		$que0 = "SELECT *FROM v_menu_billing";
+		$que0 = "SELECT *FROM v_menu_billing WHERE getMenu('"._GRUP."',appl_kode)>0";
 		if(!$res = mysql_query($que0,$link)){
 			throw new Exception($que0);
 		}
@@ -46,6 +44,8 @@
 				$l3[$row['parent_id']][$row['appl_kode']]['appl_name'] = $row['appl_name'];
 				$l3[$row['parent_id']][$row['appl_kode']]['appl_file'] = $row['appl_file'];
 				$l3[$row['parent_id']][$row['appl_kode']]['appl_proc'] = $row['appl_proc'];
+				#if($row['l1'] == '40')
+				#	$l3[$row['parent_id']][$row['appl_kode']]['dashboard'] = true;
 			}
 		}
 	}
@@ -76,6 +76,10 @@
 			$k3 = array_keys($l3[$appl_kode]);
 			for($j=0;$j<count($k3);$j++){
 				$menu03 = $l3[$appl_kode][$k3[$j]];
+				if($menu03['dashboard'])
+					$buka = "dashboard('".$menu03["appl_kode"]."')";
+				else
+					$buka = "buka('".$menu03["appl_kode"]."')";
 ?>
 			<li>
 				<input type="hidden" class="<?php echo $menu03["appl_kode"]; ?>" name="targetUrl" value="<?php echo $menu03["appl_file"]; 	?>"/>
@@ -85,7 +89,7 @@
 				<input type="hidden" class="<?php echo $menu03["appl_kode"]; ?>" name="appl_name" value="<?php echo $menu03["appl_name"]; 	?>"/>
 				<input type="hidden" class="<?php echo $menu03["appl_kode"]; ?>" name="appl_file" value="<?php echo $menu03["appl_file"]; 	?>"/>
 				<input type="hidden" class="<?php echo $menu03["appl_kode"]; ?>" name="appl_proc" value="<?php echo $menu03["appl_proc"]; 	?>"/>
-				<a onclick="buka('<?php echo $menu03["appl_kode"]; ?>')"><?php echo $menu03["appl_name"]; ?></a>
+				<a onclick="<?php echo $buka; ?>"><?php echo $menu03["appl_name"]; ?></a>
 			</li>
 <?php
 			}

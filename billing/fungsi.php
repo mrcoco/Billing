@@ -31,12 +31,12 @@
 	function cek_pass(){
 		session_start();
 		if(!isset($_SESSION["User_c"])){
-			header("Location: ../");
+			header("Location: ./login.php");
 		}
 		else{
 			define("_USER",$_SESSION["User_c"]);
 			define("_NAME",$_SESSION["Name_c"]);
-			define("_GRUP",$_SESSION["Group_c"]);
+			define("_GRUP",$_SESSION["Grup_c"]);
 			return true;
 		}
 	}

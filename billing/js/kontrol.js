@@ -81,49 +81,36 @@ function peringatan(opt){
 	messParam.set('kelas',opt);
 	getErr('peringatan.php',targetId,messParam);
 }
-function periksa(opt){
-	$('load').show();
-	var param 	= new Hash();
-	var param 	= classToHash(opt);
-	var cekId	= param.get('cekId');
-	var cekMess	= param.get('cekMess');
-	var errMess = false;
-	getAsync('interface.php',cekId,param);
-	param.unset('cekUrl');
-	if($(cekMess)!=null){
-		var errMess = $(cekMess).value;
-		if(errMess){
-			var param 	= 'pesan=' + errMess;
-			getErr('pesan.php','load',param);
-		}
-		else{
-			$('load').hide();
-		}
-	}
-	if(!errMess){
-		var targetUrl 	= param.get("targetUrl");
-		var targetId	= param.get("targetId");
-		var errorId		= param.get("errorId");
-		getSync('interface.php',targetId,errorId,param);
-	}
-}
 function dashboard(opt){
 	var param 	= new Hash();
 	var param 	= classToHash(opt);
 	var targetId  = param.get("targetId");
 	new Ajax.PeriodicalUpdater(targetId, "interface.php",{
-		method: "post", frequency: 3, decay: 2, parameters: param
+		method: "post", frequency: 1, decay: 1, parameters: param
 	});
+}
+function pilihan(opt){
+    var param     	= classToHash(opt);
+    var targetUrl 	= param.get('targetUrl');
+	var targetId 	= param.get('targetId');
+    if($(opt).checked){
+        param.set('pilihan',1);
+    }
+    getAsync('interface.php',targetId,param);
+    //var errMess = $(errorId).value;
+    //if(errMess){
+    //    var messParam  = 'pesan=' + errMess;
+    //    getErr('pesan.php','peringatan',messParam);
+    //}
 }
 function tutup(opt){
 	var param 	= new Hash();
 	$(opt).remove();
 	getAsync('kosong.php','peringatan',param);
+	getAsync('kosong.php','load',param);
 	$('peringatan').hide();
 	$('load').hide();
-	if (param.get('refresh') = 1){
-		anyar('refresh');
-	}
+	anyar('refresh');
 }
 
 function cetakin(opt){
@@ -132,5 +119,7 @@ function cetakin(opt){
 	var targetUrl	= param.get('targetUrl');
 	param.unset('targetId');
 	param.unset('targetUrl');
-	window.open(targetUrl + '?' + param.toQueryString(),targetId,'height=600,width=1024,scrollbars=1,toolbar=0,location=0,status=0,menubar=0,resizable=0');
+	param = '?' + param.toQueryString();
+	window.open(targetUrl + param);
+	//window.open(targetUrl + '?' + param.toQueryString(),targetId,'height=400,width=1024,scrollbars=1,toolbar=0,location=0,status=0,menubar=0,resizable=0');
 }

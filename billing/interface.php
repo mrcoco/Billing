@@ -3,16 +3,16 @@
 	require "model/logging.php";
 	require "fungsi.php";
 	require "lib.php";
+	cek_pass();
 	/** getParam 
 		memindahkan semua nilai dalam array POST ke dalam
 		variabel yang bersesuaian dengan masih kunci array
 	*/
 	$nilai	= $_POST;
-	$kunci	= array_keys($nilai);
-	for($i=0;$i<count($kunci);$i++){
-		$$kunci[$i]	= $nilai[$kunci[$i]];
+	$konci	= array_keys($nilai);
+	for($i=0;$i<count($konci);$i++){
+		$$konci[$i]	= $nilai[$konci[$i]];
 	}
-	unset($kunci);
 	/* getParam **/
 	
 	/** predefine parameter */
@@ -33,7 +33,6 @@
 	/* periksa proses php aktif */
 	if(isset($cekUrl)){
 		$proc = $cekUrl;
-		//$dump = false;
 	}
 	else if(isset($errorUrl)){
 		$proc = $errorUrl;

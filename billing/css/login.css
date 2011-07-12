@@ -31,8 +31,8 @@ a img {border:none;}
 	font-style: normal;
 }
 html {font-size:100.01%;}
-body {font-size:75%;color:#5b5b5b;background:#cdcdcd url('../images/bg.jpg') repeat-x top center;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
-h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#262626;font-family:MyriadProBoldCondensed, arial, helvetica;}
+body {font-size:75%;color:#5b5b5b;background:#1b202b;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;}
+h1, h2, h3, h4, h5, h6 {font-weight:normal;color:#111;font-family:MyriadProBoldCondensed, arial, helvetica;}
 h1 {font-size:3em;line-height:1;margin-bottom:0.5em;}
 h2 {font-size:2em;margin-bottom:0.75em;}
 h2.title a {text-decoration:none;line-height:0.95em;color:#5b5b5b;}
@@ -46,7 +46,7 @@ p {margin:0 0 1.5em;}
 p img.left {float:left;margin:1.5em 1.5em 1.5em 0;padding:0;}
 p img.right {float:right;margin:1.5em 0 1.5em 1.5em;}
 a:focus, a:hover {color:#5b5b5b;text-decoration:none}
-a {color:#008aca;text-decoration:none;}
+a {color:#983200;text-decoration:none;}
 blockquote {margin:1.5em;color:#666;font-style:italic;}
 strong {font-weight:bold;}
 em, dfn {font-style:italic;}
@@ -91,22 +91,20 @@ fieldset {padding:1.4em;margin:0 0 1.5em 0;border:1px solid #ccc;}
 legend {font-weight:bold;font-size:1.2em;}
 input[type=text], input[type=password], input.text, input.title, textarea, select {background-color:#fff;border:1px solid #bbb;}
 input[type=text]:focus, input[type=password]:focus, input.text:focus, input.title:focus, textarea:focus, select:focus {border-color:#666;}
-input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0;}
+input[type=text], input[type=password], input.text, input.title, textarea, select {margin:0.5em 0;}
 input.text, input.title {width:300px;padding:5px;}
-input.nama {width:100%;padding:5px;}
 input.title {font-size:1.5em;}
-select.title {font-size:1.5em;padding:5px;}
 textarea {width:390px;height:250px;padding:5px;}
 input[type=checkbox], input[type=radio], input.checkbox, input.radio {position:relative;top:.25em;}
-input[type="submit"], input[type="button"], .form_button a {background:#bdbdbd url('../images/button.jpg') repeat-x;border:0 none;font-weight:normal;	color:#262626;text-shadow:1px 1px 1px #fff;font-weight:bold;padding:2px 8px;font-size:12px;
--moz-border-radius: 14px 14px 14px 14px;
-	-webkit-border-bottom-left-radius: 14px;
-	-webkit-border-bottom-right-radius: 14px;
-	-khtml-border-bottom-left-radius: 14px;
-	-khtml-border-bottom-right-radius: 14px;
-	border-bottom-left-radius: 14px;
-	border-bottom-right-radius: 14px}
-input[type="submit"]:active, input[type="button"]:active, .form_button a:active {background:#bdbdbd url('../images/button_active.jpg') repeat-x;}
+input[type="submit"], input[type="button"], .form_button a {background:#20232a url('../images/button.jpg') repeat-x;border:0 none;font-weight:normal;	color:#fff;text-shadow:1px 1px 1px black;font-weight:bold;padding:4px 8px;font-size:12px;
+-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-khtml-border-bottom-left-radius: 4px;
+	-khtml-border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px}
+input[type="submit"]:active, input[type="button"]:active, .form_button a:active {background:#20232a url('../images/button.jpg') repeat-x;}
 
 form.inline {line-height:3;}
 form.inline p {margin-bottom:0;}
@@ -117,6 +115,7 @@ form.inline p {margin-bottom:0;}
 .error a {color:#8a1f11;}
 .notice a {color:#514721;}
 .success a {color:#264409;}
+.note {color:red;font-weight:bold;}
 
 /* A container should group all your columns. */
 .container {
@@ -284,6 +283,12 @@ div.colborder {
 .push-24 { margin: 0 -1008px 1.5em 1008px;}
 
 .push-1, .push-2, .push-3, .push-4, .push-5, .push-6, .push-7, .push-8, .push-9, .push-10, .push-11, .push-12, .push-13, .push-14, .push-15, .push-16, .push-17, .push-18, .push-19, .push-20, .push-21, .push-22, .push-23, .push-24 {float:right;position:relative;}
+
+
+
+/* Misc classes and elements
+-------------------------------------------------------------- */
+
 .prepend-top {margin-top:1.5em;}
 .append-bottom {margin-bottom:1.5em;}
 .box {padding:1.5em;margin-bottom:1.5em;background:#E5ECF9;}
@@ -294,24 +299,24 @@ hr.space {background:#fff;color:#fff;visibility:hidden;}
 .clear {clear:both;}
 
 .header {height:50px;background:transparent url('../images/logo.png') no-repeat top left}
-.menu {height:40px;background:transparent url('../images/menu.png') no-repeat top center;}
-h1.app_title {color:#001a48;text-shadow:1px 1px 1px #fff;text-align:right;font-size:26px;line-height:30px;margin-bottom:0}
-.info {font-size:11px;color:#1f6293;float:right;}
-.info a {color:#c30000;font-weight:bold;}
-.info a:hover {color:#1f6293;}
-.content {background:#fff;margin-top:5px;padding:0px;width:938px;
+.menu {height:40px;background:transparent url('../images/menu.jpg') no-repeat top center;}
+h1.app_title {color:#f9f9f9;text-shadow:1px 1px 1px #000;text-align:right;font-size:26px;line-height:30px;margin-bottom:0}
+.info {font-size:11px;color:#fff;float:right;}
+.info a {color:red;font-weight:bold;}
+.info a:hover {color:#fff;}
+.content {background:#f9f9f9;margin-top:5px;padding:0px;width:988px;
 -moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-bottom-left-radius: 4px;
 	-webkit-border-bottom-right-radius: 4px;
 	-khtml-border-bottom-left-radius: 4px;
 	-khtml-border-bottom-right-radius: 4px;
 	border-bottom-left-radius: 4px;
-	border-bottom-right-radius: 4px;}
+	border-bottom-right-radius: 4px}
 
 
 .top_info {width:99%;background:#dedfe0;padding:0px 5px;margin-bottom:5px;color:#000;}
-.footer {background:transparent;height:24px;color:#1f6293;font-size:11px;line-height:12px;margin-top:10px;text-align:center;z-index:-9999}
-h2.title_form {background:transparent url('../images/tirta-meter.gif') no-repeat left center;padding-left:35px;}
+.footer {background:transparent;height:24px;color:#fff;font-size:11px;line-height:12px;margin-top:10px;text-align:center;z-index:-9999}
+h2.title_form {background:transparent url('../images/app_title.png') no-repeat left center;padding-left:35px;}
 .tabs {cursor:pointer;}
 div.scroll {
 height: 100%;
@@ -321,17 +326,25 @@ border: 1px solid #666;
 background-color: #ccc;
 padding: 8px;
 }
-.loading {padding-top:10px;color:#fff;text-align:right;}
+.loading {padding-top:13px;color:#fff;text-align:right;}
 .loading img {margin-right:10px;}
+.userinfo {padding:15px 0px;width:272px;margin-left:10px;border:1px solid #bbb;background:#eee;
+-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-khtml-border-bottom-left-radius: 4px;
+	-khtml-border-bottom-right-radius: 4px;
+	border-bottom-left-radius: 4px;
+	border-bottom-right-radius: 4px}
+.userinforight {font-size:12px;color:#000;padding-right:12px;width:690px;}
 
 /* Root = Horizontal, Secondary = Vertical */
 ul#navmenu-h {
   border: 0 none;
   width: 720px; /*For KHTML*/
   list-style: none;
-  height: 38px;
+  height: 40px;
   text-align:left;
-  padding-top:1px;
 }
 
 ul#navmenu-h li {
@@ -342,7 +355,7 @@ ul#navmenu-h li {
   display: inline;
   list-style: none;
   position: relative;
-  height: 38px;
+  height: 40px;
 }
 
 ul#navmenu-h li ul li {
@@ -357,7 +370,7 @@ ul#navmenu-h ul {
   list-style: none;
   display: none;
   position: absolute;
-  top: 38px;
+  top: 40px;
   left: 0;
 }
 
@@ -390,10 +403,9 @@ ul#navmenu-h a {
   display: block;
   background: transparent;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
-  font: bold 18px/38px MyriadProBoldCondensed, Arial, Verdana, Helvetica, sans-serif;
+  font: bold 12px/40px Arial, Verdana, Helvetica, sans-serif;
   text-decoration: none;
-  height:38px;
+  height:40px;
 }
 
 ul#navmenu-h ul a {
@@ -406,18 +418,16 @@ ul#navmenu-h ul a {
 ul#navmenu-h a:hover,
 ul#navmenu-h li:hover a,
 ul#navmenu-h li.iehover a {
-  background: #00040c;
+  background: #000;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
 }
 
 /* 2nd Menu */
 ul#navmenu-h li:hover li a,
 ul#navmenu-h li.iehover li a {
   float: none;
-  background: #00040c;
+  background: #000;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
   height:24px;
 }
 
@@ -426,17 +436,15 @@ ul#navmenu-h li:hover li a:hover,
 ul#navmenu-h li:hover li:hover a,
 ul#navmenu-h li.iehover li a:hover,
 ul#navmenu-h li.iehover li.iehover a {
-  background: #001a48;
+  background: #383c44;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
 }
 
 /* 3rd Menu */
 ul#navmenu-h li:hover li:hover li a,
 ul#navmenu-h li.iehover li.iehover li a {
-  background: #00040c;
+  background: #000;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
   height:24px;
 }
 
@@ -445,26 +453,23 @@ ul#navmenu-h li:hover li:hover li a:hover,
 ul#navmenu-h li:hover li:hover li:hover a,
 ul#navmenu-h li.iehover li.iehover li a:hover,
 ul#navmenu-h li.iehover li.iehover li.iehover a {
-  background: #001a48;
+  background: #383c44;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
 }
 
 /* 4th Menu */
 ul#navmenu-h li:hover li:hover li:hover li a,
 ul#navmenu-h li.iehover li.iehover li.iehover li a {
-  background: #00040c;
+  background: #000;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
   height:24px;
 }
 
 /* 4th Menu Hover */
 ul#navmenu-h li:hover li:hover li:hover li a:hover,
 ul#navmenu-h li.iehover li.iehover li.iehover li a:hover {
-  background: #001a48;
+  background: #383c44;
   color: #fff;
-  text-shadow:1px 1px 1px #000;
 }
 
 ul#navmenu-h ul ul,
@@ -495,18 +500,14 @@ ul#navmenu-h ul ul li.iehover ul {
 /* Mangrupaning Tabel */
 /*--------------------*/
 .table_head {
-	background:url('../images/table_head.jpg') repeat-x;
+	background:url('../images/tirta-header02.jpg') repeat-x;
  	color: #fff;
+	font-weight:bold;
 	font-family: arial, verdana, helvetica, sans-serif;
-	font-size: 12px; 
+	font-size: 11px; 
 	text-align: center;	
 	vertical-align:middle;
 	height:32px;
-	padding:5px 0;
-}
-
-tr.table_head td {
-	font-weight:bold;
 }
 
 .table_info {
@@ -525,7 +526,7 @@ td.contentsub {background:#5f6367;color:#fff;}
 table.table_info tr td {border:0 none}
 
 .table_validator {
-	background:#2b4168;
+	background:#5f6367;
  	color: #fff;
 	font-weight:bold;
 	font-family: arial, verdana, helvetica, sans-serif;
@@ -559,7 +560,7 @@ table.table_info tr td {border:0 none}
 	border-bottom: 2px solid #fff; 
 }
 .table_cell1 {
-	background:#fff; 
+	background:#f9f9f9; 
 	color: #000; 
 	font-family:arial, verdana, helvetica, sans-serif;
 	font-size: 11px; 
@@ -567,18 +568,16 @@ table.table_info tr td {border:0 none}
 	text-align: left;
 	vertical-align:middle;	
 	height:18px;	
-	padding:10px 0;
 }
 .table_cell2 {
-	background:#ebebeb; 
+	background:#e0e0e1; 
 	color: #000; 
 	font-family:arial, verdana, helvetica, sans-serif;
 	font-size: 11px; 
 	font-weight: normal; 
 	text-align: left;
 	vertical-align:middle;	
-	height:18px;
-	padding:10px 0;
+	height:18px;	
 }
 .table_cell1 a:link, .table_cell1 a:visited, .table_cell1 a:hover,
 .table_cell2 a:link, .table_cell2 a:visited, .table_cell2 a:hover {
@@ -590,13 +589,12 @@ table.table_info tr td {border:0 none}
 }
 
 .table_cont_btm {
-	background-color:#2b4168; 
+	background-color:#5f6367; 
 	padding-top: 2px; 
 	padding-left: 2px; 
 	padding-right: 2px; 
 	padding-bottom: 2px; 
-	color:#fff;
-	text-shadow:1px 1px 1px #000;
+	color:#f9f9f9; 
 	font-family: arial, verdana, helvetica, sans-serif;
 	font-size: 8pt; 
 	font-weight: bold;
@@ -604,39 +602,3 @@ table.table_info tr td {border:0 none}
 .table_cont_btm a:link {text-decoration: none;font-family:arial, verdana, helvetica, sans-serif;font-size:8pt;font-weight: bold;color: #ffffff}
 .table_cont_btm a:visited {text-decoration: none;font-family:arial, verdana, helvetica, sans-serif;font-size:8pt;font-weight: bold;color:#ffffff}
 .table_cont_btm a:hover {text-decoration: none;font-family:arial, verdana, helvetica, sans-serif;font-size:8pt;font-weight: bold;color:#FF0000 ;border-bottom: 2px solid #FF0000;}
-.peringatan{
-	position: absolute; top: 0px; right: 0px;
-	width: 100%; height: 100%; overflow: hidden;
-	z-index: 1;
-}
-.pesan{
-	position: absolute; left: 20%; top: 0%; z-index: 1;
-	padding: 20px; width: 60%;
-	border: solid 1px #5b5b5b;
-	background-color: #f4f4f4;
-	color: #5b5b5b; font-family: arial,verdana,tahoma,helvetica;
-	text-align: center; vertical-align: middle;
-	-moz-border-radius: 14px 14px 14px 14px;
-	-webkit-border-bottom-left-radius: 14px;
-	-webkit-border-bottom-right-radius: 14px;
-	-khtml-border-bottom-left-radius: 14px;
-	-khtml-border-bottom-right-radius: 14px;
-	border-bottom-left-radius: 14px;
-	border-bottom-right-radius: 14px
-}
-.form-5 {
-	left: 5%; width: 90%;
-}
-.height-1  { height: 32px;}
-.height-2  { height: 74px;}
-.height-3  { height: 116px;}
-.height-4  { height: 158px;}
-.height-5  { height: 200px;}
-.right {text-align:right;}
-.left {text-align:left;}
-.center {text-align:center;}
-.load{
-	position: fixed; top: 0px; left: 0px; z-index: 1;
-	width: 100%; height: 100%; overflow: hidden;
-	background-image: url('../images/bg0.png');
-}
