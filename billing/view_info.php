@@ -132,7 +132,6 @@
 			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci')"/>
 		</td>
 	</tr>
-
 <?php
 
 	}
