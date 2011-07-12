@@ -19,6 +19,13 @@
 		$erno = false;
 	}
 
+	/** rinci */
+	if(isset($kode)) $proses = "rinci";
+	switch ($proses) {
+		case"rinci":
+		
+	}
+	
 	/** Pagination */
 	if(isset($pg) and $pg>1){
 		$next_page 	= $pg + 1;
@@ -122,7 +129,7 @@
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="rinci_info.php"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetId" 	value="content"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="errMess"/>
-			<img src="./images/edit.gif" title="Lihat Rincian"/>
+			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci')"/>
 		</td>
 	</tr>
 
