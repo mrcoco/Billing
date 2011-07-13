@@ -2,7 +2,6 @@
 	if($erno) die();
 	if(!isset($appl_tokn)) define("_TOKN",getToken());
 	$kp_kode = 10;
-
 	/* koneksi database */
 	/* link : link baca */
 	$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
@@ -19,13 +18,6 @@
 		$erno = false;
 	}
 
-	/** rinci */
-	if(isset($kode)) $proses = "rinci";
-	switch ($proses) {
-		case"rinci":
-		
-	}
-	
 	/** Pagination */
 	if(isset($pg) and $pg>1){
 		$next_page 	= $pg + 1;
@@ -43,13 +35,18 @@
 	/** retrieve view rayon */
 	if(isset($kode)) $proses = "cari";
 	switch($proses){
+		case "rinci":
+			$que0 = "SELECT *FROM v_info_pelanggan WHERE dkd_kd='$dkd_kd' LIMIT $limit_awal,$jml_perpage";
+			break;
 		case "cari":
-			$que0 = "SELECT *FROM tr_dkd WHERE dkd_kd LIKE '%$kode%' OR dkd_jalan LIKE '%$kode%' OR dkd_pembaca LIKE '%$kode%' LIMIT $limit_awal,$jml_perpage";
+			$que0 = "SELECT *FROM v_rayon WHERE dkd_kd LIKE '%$kode%' OR dkd_jalan LIKE '%$kode%' OR dkd_pembaca LIKE '%$kode%' LIMIT $limit_awal,$jml_perpage";
 			unset($proses);
 			break;
 		default :
-			$que0 = "SELECT *FROM tr_dkd WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
+			$que0 = "SELECT *FROM v_rayon WHERE kp_kode='$kp_kode' LIMIT $limit_awal,$jml_perpage";
 	}
+	
+	/** inquiry data */
 	try{
 		if(!$res0 = mysql_query($que0,$link)){
 			throw new Exception($que0);
@@ -59,7 +56,14 @@
 			while($row0 = mysql_fetch_array($res0)){
 				$data[] = $row0;
 				$i++;
+				
 			}
+		for($i=0;$i<count($data);$i++){
+		$klas 	= "table_cell1";
+		if(($i%2) == 0){
+			$klas = "table_cell2";
+		}
+	
 			/*	pagination : menentukan keberadaan operasi next page	*/
 			if($i==$jml_perpage){
 				$next_mess	= "<input type=\"button\" value=\">>\" class=\"form_button\" onClick=\"buka('next_page')\"/>";
@@ -73,6 +77,60 @@
 	}
 	if(!$erno) mysql_close($link);
 	switch($proses){
+		case "rinci":
+		
+			
+?>
+<br />
+<table width="200" border="1">
+  <tr class="table_cont_btm">
+    <td colspan="8" class="right">
+	Pencarian : <input type="text" class="cari next_page pref_page" name="kode" value="1234" size="10" /> <input type="button" class="cai next_page pref_page" name="kode" onclick="buka('cari')" value="Cari" /></td>
+  </tr>
+  <tr class="table_head">
+    <td>No. SL </td>
+    <td>Nama</td>
+    <td>Gol</td>
+    <td>Alamat</td>
+    <td>Jml Rek </td>
+    <td>Total</td>
+    <td>Kota Pelayanan</td>
+    <td>Manage</td>
+  </tr>
+  
+<?php
+?>
+
+  <tr class="<?php echo $klas; ?>">
+    <td><?php echo $row0['pel_no'] ?></td>
+    <td><?php echo $row0['pel_nama'] ?></td>
+    <td><?php echo $row0['gol_kode'] ?></td>
+    <td><?php echo $row0['pel_alamat'] ?></td>
+    <td><?php echo $row0['$rek_lembar'] ?></td>
+    <td><?php echo $row0['$rek_total'] ?></td>
+    <td><?php echo $row0['kp_ket'] ?></td>
+    <td> 
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_kode"	value="<?php echo _KODE; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_name"	value="<?php echo _NAME; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_file"	value="<?php echo _FILE; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_proc"	value="<?php echo _PROC; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="back" 		value="<?php echo $pg; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetId" 	value="content"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="<?php echo getToken();	?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="proses"	   	value="rinci"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dump"	   	value="0"/>
+			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci_<?php echo $i; ?>')"/></td>
+  </tr>
+  <tr class="table_validator">
+    <td colspan="8" class="right"><input type="button" class="" value="<<"> <input type="button" class="" value=">>" /></td>
+  </tr>
+</table>
+<?php
+
+		break;
 		default:
 ?>
 <h2><?php echo _NAME?></h2>
@@ -125,11 +183,13 @@
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_file"	value="<?php echo _FILE; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_proc"	value="<?php echo _PROC; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kembali" 	value="<?php echo $pg; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="rinci_info.php"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="back" 		value="<?php echo $pg; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetId" 	value="content"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="errMess"/>
-			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci')"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="<?php echo getToken();	?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="proses"	   	value="rinci"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dump"	   	value="0"/>
+			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci_<?php echo $i; ?>')"/>
 		</td>
 	</tr>
 <?php
