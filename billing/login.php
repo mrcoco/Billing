@@ -17,7 +17,7 @@
 		define("_KODE",'000000');
 		define("_TOKN",getToken());
 		define("_USER",$username);
-		define("_HOST",$_SERVER['REMOTE_ADDR']);
+		define("_HOST",$ipClient);
 		/* koneksi database */
 		/* link : link baca */
 		$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
@@ -107,11 +107,13 @@
 	</div>
 	<div class="span-17 userinforight last">
 	<h3>Billing SOPP</h3>
+<?php if($mess){ ?>
 		<p>
 		<div class="notice">
 			<span class="note">Info : </span><?php echo $mess; ?>
 		</div>
 		</p>
+<?php } ?>
 	</div>
 </div>
  

@@ -35,8 +35,9 @@
 		}
 		else{
 			define("_USER",$_SESSION["User_c"]);
-			define("_NAME",$_SESSION["Name_c"]);
+			define("_NAMA",$_SESSION["Name_c"]);
 			define("_GRUP",$_SESSION["Grup_c"]);
+			define("_KOTA",$_SESSION["Kota_c"]);
 			return true;
 		}
 	}
