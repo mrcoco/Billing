@@ -64,9 +64,7 @@
 			$i = 0;
 			while($row0 = mysql_fetch_array($res0)){
 				$data[] = $row0;
-				$i++;
-				
-			
+				$i++;	
 		}
 	
 			/*	pagination : menentukan keberadaan operasi next page	*/
@@ -103,8 +101,8 @@
 		case "rinci":
 		if(count($data)>0){
 ?>
-<input type="hidden" class="cari" 							name="proses" 	value="cari"/>
-<input type="hidden" class="refresh next_page pref_page" 	name="back" 	value="<?php echo $kembali;	?>"/>
+<input type="hidden" class="cari" name="proses" 	value="cariSL"/>
+<input type="hidden" class="refresh next_page pref_page" name="back" value="<?php echo $back; ?>"/>
 <table class="table_info">
   <tr class="table_cont_btm">
 		<td colspan="7">
@@ -134,11 +132,10 @@
 		if(($i%2) == 0){
 			$klas = "table_cell2";
 		}
-		
-		
+			
 ?>
 
-  <tr class="<?php echo $klas; ?>">
+  <tr class="<?php echo $klas; ?>" >
     <td><?php echo $row0['pel_no'] ?></td>
     <td><?php echo $row0['pel_nama'] ?></td>
     <td><?php echo $row0['gol_kode'] ?></td>
@@ -147,23 +144,22 @@
     <td><?php echo $jml_total ?></td>
     <td><?php echo $row0['kp_ket'] ?></td>
     <td> 
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $dkd_kd; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_kode"	value="<?php echo _KODE; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_name"	value="<?php echo _NAME; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_file"	value="<?php echo _FILE; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_proc"	value="<?php echo _PROC; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorId"   	value="<?php echo getToken(); ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="back" 		value="<?php echo $pg; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="pel_no"   	value="<?php echo $row0['pel_no'];		?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="pel_nama"   	value="<?php echo $row0['pel_nama'];	?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="gol_kode"   	value="<?php echo $row0['gol_kode'];	?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="pel_alamat"  value="<?php echo $row0['pel_alamat'];	?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="rek_lembar"  value="<?php echo $jml_lembar;	?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="rek_total"  value="<?php echo $jml_total;	?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kp_ket"   	value="<?php echo $row0['kp_ket'];		?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorUrl" 		value=""/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="rek_total"   value="<?php echo $jml_total;	?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kp_ket"   	value="<?php echo $row0['kp_ket'];	?> "/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorUrl" value=""/>
 			<img src="./images/edit.gif" title="Lihat Rincian" onclick="nonghol('rinci_<?php echo $i; ?>')"/></td>
   </tr>
 
@@ -236,7 +232,6 @@
 			<img src="./images/edit.gif" title="Lihat Rincian" onclick="buka('rinci_<?php echo $i; ?>')"/>
 		</td>
 	</tr>
-
 <?php
 
 	}
