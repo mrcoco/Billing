@@ -92,6 +92,7 @@
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="errorId"   	value="<?php echo getToken();	?>"/>
+<input type="hidden" class="kembali refresh cari next_page pref_page" name="dkd_kd" 	value="<?php echo $dkd_kd; 		?>"/>
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="targetId"  	value="content"/>
 <input type="hidden" class="next_page" name="pg" value="<?php echo $next_page; ?>"/>
 <input type="hidden" class="pref_page" name="pg" value="<?php echo $pref_page; ?>"/>
