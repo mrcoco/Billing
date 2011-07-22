@@ -1,6 +1,5 @@
 <?php
 	if($erno) die();
-	if(!isset($appl_tokn)) define("_TOKN",getToken());
 	$kp_kode = 10;
 	/* koneksi database */
 	/* link : link baca */
@@ -40,7 +39,7 @@
 <?
 	switch($proses){
 		case "rinci":
-			$que0 = "SELECT *FROM v_info_pelanggan WHERE dkd_kd='$dkd_kd' LIMIT $limit_awal,$jml_perpage";
+			$que0 = "SELECT *,SUM(rek_lembar) AS jml_rek,SUM(rek_total) AS total FROM v_info_pelanggan WHERE dkd_kd='$dkd_kd' GROUP BY pel_no LIMIT $limit_awal,$jml_perpage";
 			break;
 		case "cari":
 			$que0 = "SELECT *FROM v_rayon WHERE dkd_kd LIKE '%$kode%' OR dkd_jalan LIKE '%$kode%' OR dkd_pembaca LIKE '%$kode%' LIMIT $limit_awal,$jml_perpage";
@@ -66,7 +65,6 @@
 				$data[] = $row0;
 				$i++;	
 		}
-	
 			/*	pagination : menentukan keberadaan operasi next page	*/
 			if($i==$jml_perpage){
 				$next_mess	= "<input type=\"button\" value=\">>\" class=\"form_button\" onClick=\"buka('next_page')\"/>";
@@ -81,7 +79,6 @@
 	
 	if(!$erno) mysql_close($link);
 ?>
-
 <input type="hidden" id="<?php echo $errorId; ?>" value="<?php echo $mess; ?>"/>
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
 <input type="hidden" class="kembali refresh cari next_page pref_page" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
@@ -105,13 +102,14 @@
 <input type="hidden" class="refresh next_page pref_page" name="back" value="<?php echo $back; ?>"/>
 <table class="table_info">
   <tr class="table_cont_btm">
-		<td colspan="7">
+		<td colspan="8">
 			Pencarian :
 			<input type="text" class="cari next_page pref_page" name="kunci" value="<?php echo $kunci; ?>" onchange="buka('cari')" size=	"10" title="Pencarian berdasarkan nomor SL, nama atau alamat pelanggan"/>
 		</td>
 		<td width="57" class="right">Halaman : <?php echo $pg; ?></td>
   </tr>
   <tr class="table_head">
+    <td>No</td>
     <td>No. SL </td>
     <td>Nama</td>
     <td>Gol</td>
@@ -126,8 +124,8 @@
 	for($i=0;$i<count($data);$i++){
 		$row0 	= $data[$i];
 		$nomor	= ($i+1)+(($pg-1)*$jml_perpage);
-		$jml_lembar= $row0['rek_lembar'];
-		$jml_total = $row0['rek_total'];
+		$jml_lembar= $row0['jml_rek'];
+		$jml_total = $row0['total'];
 		$klas 	= "table_cell1";
 		if(($i%2) == 0){
 			$klas = "table_cell2";
@@ -136,12 +134,13 @@
 ?>
 
   <tr class="<?php echo $klas; ?>" >
-    <td><?php echo $row0['pel_no'] ?></td>
-    <td><?php echo $row0['pel_nama'] ?></td>
-    <td><?php echo $row0['gol_kode'] ?></td>
-    <td><?php echo $row0['pel_alamat'] ?></td>
-    <td><?php echo $jml_lembar ?></td>
-    <td><?php echo $jml_total ?></td>
+    <td><?php echo $nomor; ?></td>
+    <td><?php echo $row0['pel_no']; ?></td>
+    <td><?php echo $row0['pel_nama']; ?></td>
+    <td><?php echo $row0['gol_kode']; ?></td>
+    <td><?php echo $row0['pel_alamat']; ?></td>
+    <td><?php echo number_format($jml_lembar); ?></td>
+    <td><?php echo number_format($jml_total); ?></td>
     <td><?php echo $row0['kp_ket'] ?></td>
     <td> 
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $dkd_kd; ?>"/>
@@ -158,8 +157,8 @@
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="rek_lembar"  value="<?php echo $jml_lembar;	?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="rek_total"   value="<?php echo $jml_total;	?>"/>
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kp_ket"   	value="<?php echo $row0['kp_ket'];	?> "/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $row0['dkd_kd']; ?>"/>
-			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorUrl" value=""/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="kps_ket"   	value="<?php echo $row0['kps_ket'];	?> "/>
+			<input type="hidden" class="rinci_<?php echo $i; ?>" name="errorUrl" value="cetak_info_pelanggan.php"/>
 			<img src="./images/edit.gif" title="Lihat Rincian" onclick="nonghol('rinci_<?php echo $i; ?>')"/></td>
   </tr>
 
@@ -168,7 +167,7 @@
 	}
 ?>
 	<tr class="table_cont_btm">
-		<td colspan="8" class="right">&nbsp;<?php echo $pref_mess." ".$kembali." ".$next_mess; ?></td>
+		<td colspan="9" class="right">&nbsp;<?php echo $pref_mess." ".$kembali." ".$next_mess; ?></td>
 	</tr>
 </table>
 
@@ -176,7 +175,7 @@
 			}
 			else{
 				//echo "<center class=\"notice\">Data pencarian ".$kunci." tidak ditemukan</center>";
-				echo "<center class=\"notice\">".$que0."</center>";
+				echo "<center class=\"notice\">Data Pelanggan Rayon ".$dkd_kd." Tidak ditemukan</center>";
 				echo $kembali;
 			}
 			break;
