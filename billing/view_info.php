@@ -1,6 +1,6 @@
 <?php
 	if($erno) die();
-	$kp_kode = 10;
+	$kp_kode = _KOTA;
 	/* koneksi database */
 	/* link : link baca */
 	$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
@@ -139,8 +139,8 @@
     <td><?php echo $row0['pel_nama']; ?></td>
     <td><?php echo $row0['gol_kode']; ?></td>
     <td><?php echo $row0['pel_alamat']; ?></td>
-    <td><?php echo number_format($jml_lembar); ?></td>
-    <td><?php echo number_format($jml_total); ?></td>
+    <td class="right"><?php echo number_format($jml_lembar); ?></td>
+    <td class="right"><?php echo number_format($jml_total); ?></td>
     <td><?php echo $row0['kp_ket'] ?></td>
     <td> 
 			<input type="hidden" class="rinci_<?php echo $i; ?>" name="dkd_kd"		value="<?php echo $dkd_kd; ?>"/>

@@ -1,6 +1,5 @@
 <?php
 	if($erno) die();
-	if(!isset($appl_tokn)) define("_TOKN",getToken());
 	switch($proses){
 		case "periksaDSR":
 			echo "Halaman Periksa DSR";
@@ -120,8 +119,8 @@
 <?			
 break;
 		default:
-			$data1[]	= array("rek_bln"=>"1","bln_nama"=>"Januari");
-			$data1[]	= array("rek_bln"=>"2","bln_nama"=>"Februari");
+			$data1[] = array("rek_bln"=>"1","bln_nama"=>"Januari");
+			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Februari");
 			$data1[] = array("rek_bln"=>"3","bln_nama"=>"Maret");
    			$data1[] = array("rek_bln"=>"4","bln_nama"=>"April");
    			$data1[] = array("rek_bln"=>"5","bln_nama"=>"Mei");
@@ -132,16 +131,8 @@ break;
 			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Oktober");
 			$data1[] = array("rek_bln"=>"2","bln_nama"=>"November");
 			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Desember");
-			$parm1	 = array("class"=>"cekDSR","name"=>"rek_bln","selected"=>6);
+			$parm1	 = array("class"=>"cekDSR","name"=>"rek_bln","selected"=>5);
 ?>
-
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-<!--
-.style1 {font-weight: bold}
--->
-</style>
-
 <h2><?php echo _NAME; ?></h2><hr/>
 <input type="hidden" class="cekDSR" name="appl_kode" 	value="<?php echo _KODE; ?>"/>
 <input type="hidden" class="cekDSR" name="appl_name" 	value="<?php echo _NAME; ?>"/>
@@ -151,10 +142,9 @@ break;
 <input type="hidden" class="cekDSR" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="cekDSR" name="targetId" 	value="content"/>
 <input type="hidden" class="cekDSR" name="proses"	 	value="periksaDSR"/>
-<input type="hidden" class="cekDSR" name="dump" 		value="0"/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Nomor Pelanggan</div>
-<div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6"/></div>
+<div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6" value="015470"/></div>
 <br/><br/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Bulan - Tahun</div>
@@ -165,10 +155,7 @@ break;
 </div>
 <br/><br/>
 <div class="span-12 center">
-	<input type="hidden" class="cekDSR" name="cekUrl" 	value="<?php echo _PROC; ?>"/>
-	<input type="hidden" class="cekDSR" name="cekId" 	value="peringatan"/>
-	<input type="hidden" class="cekDSR" name="cekMess" 	value="<?php echo getToken(); ?>"/>
-	<input type="Button" value="Cek Rekening" onclick="periksa('cekDSR')"/>
+	<input type="Button" value="Cek Rekening" onclick="buka('cekDSR')"/>
 </div>
 <?php
 	}

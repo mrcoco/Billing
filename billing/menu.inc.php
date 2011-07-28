@@ -26,7 +26,7 @@
 	}
 	
 	try{
-		$que0 = "SELECT *FROM v_menu_billing WHERE getMenu('"._GRUP."',appl_kode)>0";
+		$que0 = "SELECT *FROM v_menu_item WHERE getMenu('"._GRUP."',appl_kode)>0";
 		if(!$res = mysql_query($que0,$link)){
 			throw new Exception($que0);
 		}
