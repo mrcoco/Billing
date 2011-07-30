@@ -1,46 +1,112 @@
 <?php
 	if($erno) die();
+	/* koneksi database */
+	/* link : link baca */
+	$mess 	= "user : ".$DUSER." tidak bisa terhubung ke server : ".$DHOST;
+	$link 	= mysql_connect($DHOST,$DUSER,$DPASS) or die(errorLog::errorDie(array($mess)));
+	try{
+		if(!mysql_select_db($DNAME,$link)){
+			throw new Exception("user : ".$DUSER." tidak bisa terhubung ke database : ".$DNAME);
+		}
+	}
+	catch (Exception $e){
+		errorLog::errorDB(array($e->getMessage()));
+		$mess = "Terjadi kesalahan pada sistem<br/>Nomor Tiket : ".substr(_TOKN,-4);
+		$klas = "error";
+		$erno = false;
+	}
+	
+	
 	switch($proses){
+		 case "rinci":
+			$formId		= getToken();
+			$cekMess	= getToken();
+			/** retrieve data pelanggan */
+			try{
+				$que0 = "SELECT *FROM v_ba_reduksi WHERE pel_no='$pel_no'";
+				if(!$res0 = mysql_query($que0,$link)){
+					throw new Exception($que0);
+				}
+				else{
+					$row0 = mysql_fetch_array($res0);
+					$mess = false;
+				}
+			}
+			catch (Exception $e){
+				errorLog::errorDB(array($que0));
+				$mess = $e->getMessage();
+			}
+			
+		
 		case "periksaDSR":
-			echo "Halaman Periksa DSR";
+		try {
+			$que0 = "SELECT * FROM v_lap_reduksi WHERE pel_no='$pel_no'";
+			if(!$res0 = mysql_query($que0,$link)){
+				throw new Exception($que0);
+			}
+			else{
+				$i = 0;
+				while($row0 = mysql_fetch_array($res0)){
+					$data[] = $row0;
+					$i++;	
+			}
+				$mess = false;
+			}
+		}
+			catch (Exception $e){
+			errorLog::errorDB(array($que0));
+			$mess = $e->getMessage();
+		}
+			
 ?>
-		<fieldset class="">
-			<p><strong>REDUKSI REKENING </strong></p>
-			<table width="82%" >
-				    		<tr class="table_cell1">
-				    		  <td width="18%" class="table_cell1" > No. Pelanggan</td> 
-				    		  <td width="21%" class="text">:</td>
-				    		  <td width="25%" class="text">&nbsp;</td>
-				    		  <td width="36%" class="text">&nbsp;</td>                           			
-  <tr class="table_cell1">
-    <td class="text" >Nama</td>	    
-    <td class="text">:</td>
-    <td class="text">Golongan</td>
-    <td class="text"> : 	</td>        	                
-  <tr class="table_cell1">
-				    		  <td class="text" >Alamat</td>   
-    <td class="text">:</td>
-    <td class="text">Rayon Pembacaan </td>
-    <td class="text"> : </td>				
-</table>	
-<p><strong>REDUKSI SEBELUMNYA</strong></p>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<fieldset class="">
+<h3>REDUKSI REKENING </h3>
+
+<?php	
+	for($i=0;$i<1;$i++){
+		$row0 	= $data[$i];
+		$pemakaian = $row0['rd_stankini'] - $row0['rd_stanlalu'];
+?>
+<table>
+	<tr>
+		<td>No. Pelanggan</td>
+		<td><?php echo ": ".$row0['pel_no']; 	?></td>
+		<td>Golongan</td>
+		<td><?php echo ": ".$row0['gol_kode']; 	?></td>
+	</tr>
+	<tr>
+		<td>Nama</td>
+		<td><?php echo ": ".$row0['pel_nama']; 	?></td>
+		<td>Rayon Pembacaan</td>
+		<td><?php echo ": ".$row0['dkd_kd']; 	?></td>
+	</tr>
+	<tr>
+		<td>Alamat</td>
+		<td><?php echo ": ".$row0['pel_alamat'];?></td>
+		<td>Status</td>
+		<td><?php echo ": ".$row0['kps_ket']; 	?></td>
+	</tr>
+</table>
+
+<h3>REDUKSI SEBELUMNYA</h3>
 <table width="100%" >
-				<tr class="table_validator" > 
-				    <td rowspan="1"><div align="center"><strong>Tanggal</strong></div></td>				
+				<tr class="table_head center"> 
+				    <td rowspan="1" class="center">Tanggal</td>				
 				   
-				    <td colspan="2"><div align="center"><strong>Sebelumnya</strong></div></td>
-				    <td colspan="3" ><div align="center"><strong>Hasil Koreksi</strong></div></td>
-				    <td colspan="2" ><div align="center"><strong>Selisih</strong></div></td>
+				    <td colspan="2" class="center">Sebelumnya</td>
+				    <td colspan="3" class="center">Hasil Koreksi</td>
+				    <td colspan="2" class="center">Selisih</td>
  					 </tr>
-				  <tr class="table_validator"> 			
-				    <td><div align="center"> </div></td>	  				    
-				    <td><div align="center"><strong>Uang Air	</strong></div></td>
-				    <td><div align="center"><strong>Nilai Total 	</strong></div></td>
-				    <td><div align="center"><strong>Reduksi (%)    </strong></div></td>
-				    <td><div align="center"><strong>Uang Air	</strong></div></td>
-				    <td><div align="center"><strong>Nilai Total 	</strong></div></td>
-				    <td><div align="center"><strong>Uang Air	</strong></div></td>
-				    <td><div align="center"><strong>Nilai Total 	</strong></div></td>
+				  <tr class="table_head"> 			
+				    <td></td>	  				    
+				    <td class="center">Uang Air</td>
+				    <td class="center">Nilai Total</td>
+				    <td class="center">Reduksi (%)</td>
+				    <td class="center">Uang Air</td>
+				    <td class="center">Nilai Total</td>
+				    <td class="center">Uang Air</td>
+				    <td class="center">Nilai Total</td>
   					</tr>
 
 						<tr valign="top" class="table_cell1" >  
@@ -55,66 +121,70 @@
 				   		    <td align="right" >&nbsp;</td>
                        </tr>
 
-			<tr class="table_validator">
+			<tr class="table_cont_btm">
 				<td>&nbsp;</td>
 				<td colspan="8"></td>
-  </tr>
+  			</tr>
 </table>
-<p class="style1">REDUKSI </p>
+<h3>REDUKSI</h3>
 <table width="95%" border="1" >
-  <tr bgcolor="#02153F" class="table_validator">
-    <td width="14%"><div align="center" class="style3">No</div></td>
-    <td width="13%"><div align="center" class="style6 style3">Bulan / Tahun </div></td>
-    <td colspan="2"><div align="center" class="style3"><span class="style6">Sebelumnya</span></div></td>
-    <td colspan="2"><div align="center" class="style3"><span class="style6">Sekarang (Reduksi) </span></div></td>
-    <td colspan="2"><div align="center" class="style3"><span class="style6">Selisih</span></div></td>
+  <tr bgcolor="#02153F" class="table_head">
+    <td class="center">No</td>
+    <td class="center">Bulan / Tahun</td>
+    <td colspan="2" class="center">Sebelumnya</td>
+    <td colspan="2" class="center">Sekarang (Reduksi)</td>
+    <td colspan="2" class="center">Selisih</td>
   </tr>
-  <tr>
-    <td rowspan="5" class="table_cell1 center">123456789011212</td>
-    <td rowspan="5" class="table_cell1 center">Juni 2011 </td>
-    <td width="13%" class="table_cell1">Stan Lalu </td>
-    <td width="9%" class="table_cell1">:</td>
-    <td colspan="2" rowspan="3" class="table_cell1"><form id="form1" name="form1" method="post" action="">
+  <tr class="table_cell1">
+    <td rowspan="5" class="center"><?php echo $row0['rek_nomor']; ?></td>
+    <td rowspan="5"><?php echo $bulan[$row0['rek_bln']]." ".$row0['rek_thn'];  ?></td>
+    <td>Stan Lalu </td>
+    <td>:<?php echo number_format($row0['rd_stanlalu']); ?></td>
+    <td colspan="2" rowspan="3"><form id="form1" name="form1" method="post" action="">
       <p>Reduksi
         <input name="persen" type="text" id="persen" size="10" />
         Persen </p>
         <p align="center">
-          <input type="button" name="Button" value="Hitung" class="hitung_button"/>   
+          <input type="button" name="Button" value="Hitung" class="hitung" onclick="periksa('hitung')"/>   
         </p>
     </form></td>
-    <td width="13%" rowspan="3" class="table_cell1">&nbsp;</td>
-    <td width="10%" rowspan="3" class="table_cell1">&nbsp;</td>
+    <td width="13%" rowspan="3">&nbsp;</td>
+    <td width="10%" rowspan="3">&nbsp;</td>
   </tr>
-  <tr>
-    <td height="27" class="table_cell1">Stan Kini</td>
-    <td class="table_cell1">:</td>
+  <tr class="table_cell1">
+    <td>Stan Kini</td>
+    <td>:<?php echo number_format($row0['rd_stankini']); ?></td>
   </tr>
-  <tr>
-    <td height="27" class="table_cell1">Pemakaian</td>
-    <td class="table_cell1">:</td>
+  <tr class="table_cell1">
+    <td>Pemakaian</td>
+    <td>:<?php echo number_format($pemakaian); ?></td>
   </tr>
-  <tr>
-    <td height="34" class="table_cell1">Uang Air</td>
-    <td class="table_cell1">:</td>
-    <td width="16%" class="table_cell1">Uang Air &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;:</td>
-    <td width="12%" class="table_cell1 right">&nbsp;</td>
-    <td class="table_cell1">Uang Air &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;:</td>
-    <td class="table_cell1 right">&nbsp;</td>
+  <tr class="table_cell1">
+    <td>Uang Air</td>
+    <td>:</td>
+    <td>Uang Air </td>
+    <td>:</td>
+    <td>Uang Air :</td>
+    <td>&nbsp;</td>
   </tr>
-  <tr>
-    <td height="27" class="table_cell1">NILAI TOTAL </td>
-    <td class="table_cell1">:</td>
-    <td class="table_cell1">NILAI TOTAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;     &nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td class="table_cell1 right">&nbsp;</td>
-    <td class="table_cell1">NILAI TOTAL &nbsp;&nbsp;&nbsp;&nbsp;:</td>
-    <td class="table_cell1 right">&nbsp;</td>
+  <tr class="table_cell1">
+    <td>NILAI TOTAL </td>
+    <td>:</td>
+    <td>NILAI TOTAL</td>
+    <td>:</td>
+    <td>NILAI TOTAL :</td>
+    <td>&nbsp;</td>
   </tr>
   <tr bgcolor="#02153F" class="table_validator">
-    <td height="30" colspan="8"><div align="right"><input name="Submit" type="submit" value="Reduksi" />
+    <td colspan="8" class="table_cont_btm right"><input name="Submit" type="submit" value="Reduksi" />
        <input name="Submit2" type="submit" value="Batal" />
-    </div></td>
+    </td>
   </tr>
 </table>
+<?php
+}
+?>
+
 </fieldset>
 <?			
 break;
