@@ -17,13 +17,13 @@
 	}
 	
 	
-	switch($proses){
-		 case "rinci":
+	switch($proses){	
+		case "periksaDSR":
 			$formId		= getToken();
 			$cekMess	= getToken();
 			/** retrieve data pelanggan */
 			try{
-				$que0 = "SELECT *FROM v_ba_reduksi WHERE pel_no='$pel_no'";
+				$que0 = "SELECT *FROM v_data_pelanggan WHERE pel_no='$pel_no'";
 				if(!$res0 = mysql_query($que0,$link)){
 					throw new Exception($que0);
 				}
@@ -36,25 +36,44 @@
 				errorLog::errorDB(array($que0));
 				$mess = $e->getMessage();
 			}
-			
-		
-		case "periksaDSR":
+
 		try {
-			$que0 = "SELECT * FROM v_lap_reduksi WHERE pel_no='$pel_no'";
-			if(!$res0 = mysql_query($que0,$link)){
-				throw new Exception($que0);
+			$que1 = "SELECT * FROM v_lap_reduksi WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn ORDER BY rd_tgl";
+			if(!$res1 = mysql_query($que1,$link)){
+				throw new Exception($que1);
 			}
 			else{
 				$i = 0;
-				while($row0 = mysql_fetch_array($res0)){
-					$data[] = $row0;
+				while($row1 = mysql_fetch_array($res1)){
+					$data1[] = $row1;
 					$i++;	
 			}
 				$mess = false;
 			}
 		}
 			catch (Exception $e){
-			errorLog::errorDB(array($que0));
+			errorLog::errorDB(array($que1));
+			$mess = $e->getMessage();
+		}
+		try {
+			$que2 = "SELECT * FROM v_dsr WHERE pel_no='$pel_no'";
+			if(!$res2 = mysql_query($que2,$link)){
+				throw new Exception($que2);
+			}
+			else{
+				$i = 0;
+				while($row2 = mysql_fetch_array($res2)){
+					$data2[] = $row2;
+					$beban_tetap = $row2['rek_adm'] + $row2['rek_meter'];
+					$angsuran = $row2['rek_angsuran'];
+					$i++;	
+			}
+			
+				$mess = false;
+			}
+		}
+			catch (Exception $e){
+			errorLog::errorDB(array($que2));
 			$mess = $e->getMessage();
 		}
 			
@@ -63,11 +82,6 @@
 <fieldset class="">
 <h3>REDUKSI REKENING </h3>
 
-<?php	
-	for($i=0;$i<1;$i++){
-		$row0 	= $data[$i];
-		$pemakaian = $row0['rd_stankini'] - $row0['rd_stanlalu'];
-?>
 <table>
 	<tr>
 		<td>No. Pelanggan</td>
@@ -88,12 +102,22 @@
 		<td><?php echo ": ".$row0['kps_ket']; 	?></td>
 	</tr>
 </table>
-
+<?php	
+	for($i=0;$i<count($data1);$i++){
+		$row1 	= $data1[$i];
+		$klas 	= "table_cell1";
+				if(($i%2) == 0){
+					$klas = "table_cell2";
+				}
+				$rd_uangair_selisih = $row1['rd_uangair_akhir'] - $row1['rd_uangair_awal'];
+				$rd_total_awal = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
+				$rd_total_akhir = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
+				$rd_total = $rd_total_akhir - $rd_total_awal;
+?>
 <h3>REDUKSI SEBELUMNYA</h3>
 <table width="100%" >
 				<tr class="table_head center"> 
 				    <td rowspan="1" class="center">Tanggal</td>				
-				   
 				    <td colspan="2" class="center">Sebelumnya</td>
 				    <td colspan="3" class="center">Hasil Koreksi</td>
 				    <td colspan="2" class="center">Selisih</td>
@@ -109,16 +133,15 @@
 				    <td class="center">Nilai Total</td>
   					</tr>
 
-						<tr valign="top" class="table_cell1" >  
-					 	    <td >&nbsp;</td>
-					 	    											 	    					
-					 	    <td >&nbsp;</td>
-				   		    <td align="right" >&nbsp;</td>
-				   		    <td align="right" >&nbsp;</td>
-				   		    <td align="right" >&nbsp;</td>   		    
-				     		<td align="right" >&nbsp;</td>
-				  		    <td align="right" >&nbsp;</td>
-				   		    <td align="right" >&nbsp;</td>
+						<tr valign="top" class="<?php echo $klas; ?>" >  
+					 	    <td class="center"><?php echo $row1['rd_tgl']; ?></td>											 	    					
+					 	    <td class="right"><?php echo number_format($row1['rd_uangair_awal']); ?></td>
+				   		    <td class="right"><?php echo number_format($rd_total_awal); ?></td>
+				   		    <td class="right"><?php echo number_format($row1['rd_nilai']); ?></td>
+				   		    <td class="right"><?php echo number_format($row1['rd_uangair_akhir']); ?></td>   		    
+				     		<td class="right"><?php echo number_format($rd_total_akhir); ?></td>
+				  		    <td class="right"><?php echo number_format($rd_uangair_selisih); ?></td>
+				   		    <td class="right"><?php echo number_format($rd_total); ?></td>
                        </tr>
 
 			<tr class="table_cont_btm">
@@ -126,6 +149,13 @@
 				<td colspan="8"></td>
   			</tr>
 </table>
+<?php	
+	for($i=0;$i<count($data2);$i++){
+		$row2 	= $data2[$i];
+				}
+				$pemakaian = $row2['rek_stankini'] - $row2['rek_stanlalu'];
+				
+?>
 <h3>REDUKSI</h3>
 <table width="95%" border="1" >
   <tr bgcolor="#02153F" class="table_head">
@@ -136,32 +166,32 @@
     <td colspan="2" class="center">Selisih</td>
   </tr>
   <tr class="table_cell1">
-    <td rowspan="5" class="center"><?php echo $row0['rek_nomor']; ?></td>
-    <td rowspan="5"><?php echo $bulan[$row0['rek_bln']]." ".$row0['rek_thn'];  ?></td>
+    <td rowspan="5" class="center"><?php echo $row2['rek_nomor']; ?></td>
+    <td rowspan="5" class="center"><?php echo $bulan[$row2['rek_bln']]." ".$row2['rek_thn'];  ?></td>
     <td>Stan Lalu </td>
-    <td>:<?php echo number_format($row0['rd_stanlalu']); ?></td>
-    <td colspan="2" rowspan="3"><form id="form1" name="form1" method="post" action="">
+    <td class="right"><?php echo ": ".number_format($row2['rek_stanlalu']); ?></td>
+    <td colspan="2" rowspan="3">
       <p>Reduksi
-        <input name="persen" type="text" id="persen" size="10" />
+        <input class="cekDSR" name="reduksi" size="5" value="" />
         Persen </p>
         <p align="center">
           <input type="button" name="Button" value="Hitung" class="hitung" onclick="periksa('hitung')"/>   
         </p>
-    </form></td>
+    </td>
     <td width="13%" rowspan="3">&nbsp;</td>
     <td width="10%" rowspan="3">&nbsp;</td>
   </tr>
   <tr class="table_cell1">
     <td>Stan Kini</td>
-    <td>:<?php echo number_format($row0['rd_stankini']); ?></td>
+    <td class="right"><?php echo ": ".number_format($row2['rek_stankini']); ?></td>
   </tr>
   <tr class="table_cell1">
     <td>Pemakaian</td>
-    <td>:<?php echo number_format($pemakaian); ?></td>
+    <td class="right"><?php echo ": ".number_format($pemakaian); ?></td>
   </tr>
   <tr class="table_cell1">
     <td>Uang Air</td>
-    <td>:</td>
+    <td class="right"><?php echo ": ".number_format($row2['rek_uangair']); ?></td>
     <td>Uang Air </td>
     <td>:</td>
     <td>Uang Air :</td>
@@ -169,7 +199,7 @@
   </tr>
   <tr class="table_cell1">
     <td>NILAI TOTAL </td>
-    <td>:</td>
+    <td class="right"><?php echo ": ".number_format($row2['rek_total']); ?></td>
     <td>NILAI TOTAL</td>
     <td>:</td>
     <td>NILAI TOTAL :</td>
