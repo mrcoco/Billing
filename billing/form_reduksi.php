@@ -16,6 +16,7 @@
 		$erno = false;
 	}
 	
+	$kembali= "<input type=\"button\" value=\"Kembali\" onclick=\"buka('kembali')\"/>";
 	
 	switch($proses){	
 		case "periksaDSR":
@@ -28,10 +29,19 @@
 					throw new Exception($que0);
 				}
 				else{
-					$row0 = mysql_fetch_array($res0);
+					$i = 0;
+					while($row0 = mysql_fetch_array($res0)){
+					$data0[] = $row0;
+					$i++;
+					}
+					if($i==0) {
+						echo "<br /><center class=\"notice\">Data Pelanggan dengan SL ".$pel_no." Tidak ditemukan</center>";
+						echo $kembali;
+					}
 					$mess = false;
 				}
 			}
+			
 			catch (Exception $e){
 				errorLog::errorDB(array($que0));
 				$mess = $e->getMessage();
@@ -68,7 +78,10 @@
 					$angsuran = $row2['rek_angsuran'];
 					$i++;	
 			}
-			
+					if($i==0){
+					echo "<br /><center class=\"notice\">Data Pelanggan dengan SL ".$pel_no." Tidak memiliki tunggakan</center>";
+					echo $kembali;
+				}
 				$mess = false;
 			}
 		}
@@ -76,12 +89,15 @@
 			errorLog::errorDB(array($que2));
 			$mess = $e->getMessage();
 		}
-			
 ?>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
 <fieldset class="">
 <h3>REDUKSI REKENING </h3>
-
+<?php	
+	for($i=0;$i<count($data0);$i++){
+		$row0	= $data0[$i];
+				}
+?>
 <table>
 	<tr>
 		<td>No. Pelanggan</td>
@@ -110,9 +126,10 @@
 					$klas = "table_cell2";
 				}
 				$rd_uangair_selisih = $row1['rd_uangair_akhir'] - $row1['rd_uangair_awal'];
-				$rd_total_awal = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
-				$rd_total_akhir = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
-				$rd_total = $rd_total_akhir - $rd_total_awal;
+				$rd_total_awal      = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
+				$rd_total_akhir     = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
+				$rd_total           = $rd_total_akhir - $rd_total_awal;
+				
 ?>
 <h3>REDUKSI SEBELUMNYA</h3>
 <table width="100%" >
@@ -171,15 +188,15 @@
     <td>Stan Lalu </td>
     <td class="right"><?php echo ": ".number_format($row2['rek_stanlalu']); ?></td>
     <td colspan="2" rowspan="3">
-      <p>Reduksi
+        <p>Reduksi
         <input class="cekDSR" name="reduksi" size="5" value="" />
         Persen </p>
         <p align="center">
           <input type="button" name="Button" value="Hitung" class="hitung" onclick="periksa('hitung')"/>   
         </p>
     </td>
-    <td width="13%" rowspan="3">&nbsp;</td>
-    <td width="10%" rowspan="3">&nbsp;</td>
+    <td rowspan="3">&nbsp;</td>
+    <td rowspan="3">&nbsp;</td>
   </tr>
   <tr class="table_cell1">
     <td>Stan Kini</td>
@@ -242,6 +259,7 @@ break;
 <input type="hidden" class="cekDSR" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="cekDSR" name="targetId" 	value="content"/>
 <input type="hidden" class="cekDSR" name="proses"	 	value="periksaDSR"/>
+<input type="hidden" class="kembali" name="kembali" value="<?php echo $back; ?>"/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Nomor Pelanggan</div>
 <div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6" value="015470"/></div>
@@ -259,4 +277,5 @@ break;
 </div>
 <?php
 	}
+	
 ?>
