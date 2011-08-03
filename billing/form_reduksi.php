@@ -98,6 +98,18 @@
 		$row0	= $data0[$i];
 				}
 ?>
+<input type="hidden" id="<?php echo $errorId; ?>" value="<?php echo $mess; ?>"/>
+<input type="hidden" class="kembali" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
+<input type="hidden" class="kembali" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
+<input type="hidden" class="kembali" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="kembali" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="kembali" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+<input type="hidden" class="kembali" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="kembali" name="errorId"   	value="<?php echo getToken();	?>"/>
+<input type="hidden" class="kembali" name="dkd_kd" 	value="<?php echo $dkd_kd; 		?>"/>
+<input type="hidden" class="kembali" name="targetId"  	value="content"/>
+<input type="hidden" class="refresh" name="kembali" value="<?php echo $pg;	?>"/>
+<input type="hidden" class="kembali" name="kembali" value="<?php echo $back; ?>"/>
 <table>
 	<tr>
 		<td>No. Pelanggan</td>
@@ -259,7 +271,6 @@ break;
 <input type="hidden" class="cekDSR" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 <input type="hidden" class="cekDSR" name="targetId" 	value="content"/>
 <input type="hidden" class="cekDSR" name="proses"	 	value="periksaDSR"/>
-<input type="hidden" class="kembali" name="kembali" value="<?php echo $back; ?>"/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Nomor Pelanggan</div>
 <div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6" value="015470"/></div>
