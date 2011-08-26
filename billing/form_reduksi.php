@@ -130,6 +130,7 @@
 		<td><?php echo ": ".$row0['kps_ket']; 	?></td>
 	</tr>
 </table>
+<hr />
 <?php	
 	for($i=0;$i<count($data1);$i++){
 		$row1 	= $data1[$i];
@@ -236,7 +237,7 @@
   </tr>
   <tr bgcolor="#02153F" class="table_validator">
     <td colspan="8" class="table_cont_btm right"><input name="Submit" type="submit" value="Reduksi" />
-       <input name="Submit2" type="submit" value="Batal" />
+       <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
     </td>
   </tr>
 </table>
