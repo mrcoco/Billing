@@ -20,9 +20,23 @@
 	
 	switch($proses){	
 		case "periksaDSR":
+?>
+<input type="hidden" id="<?php echo $errorId; ?>" value="<?php echo $mess; ?>"/>
+<input type="hidden" class="kembali" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
+<input type="hidden" class="kembali" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
+<input type="hidden" class="kembali" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="kembali" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+<input type="hidden" class="kembali" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+<input type="hidden" class="kembali" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
+<input type="hidden" class="kembali" name="errorId"   	value="<?php echo getToken();	?>"/>
+<input type="hidden" class="kembali" name="targetId"  	value="content"/>
+<?php
 			$formId		= getToken();
 			$cekMess	= getToken();
-			/** retrieve data pelanggan */
+			$form1		= true;
+			$form2		= true;
+			$form3		= true;
+			/** 1. retrieve data pelanggan */
 			try{
 				$que0 = "SELECT *FROM v_data_pelanggan WHERE pel_no='$pel_no'";
 				if(!$res0 = mysql_query($que0,$link)){
@@ -35,8 +49,8 @@
 					$i++;
 					}
 					if($i==0) {
-						echo "<br /><center class=\"notice\">Data Pelanggan dengan SL ".$pel_no." Tidak ditemukan</center>";
-						echo $kembali;
+						$mess1	= "<br /><center class=\"notice\">Data Pelanggan dengan SL ".$pel_no." Tidak ditemukan</center>";
+						$form1	= false;
 					}
 					$mess = false;
 				}
@@ -46,7 +60,7 @@
 				errorLog::errorDB(array($que0));
 				$mess = $e->getMessage();
 			}
-
+		/* 2. retrieve catatan reduksi */
 		try {
 			$que1 = "SELECT * FROM v_lap_reduksi WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn ORDER BY rd_tgl";
 			if(!$res1 = mysql_query($que1,$link)){
@@ -58,6 +72,9 @@
 					$data1[] = $row1;
 					$i++;	
 			}
+					if($i==0) {
+						$form2	= false;
+					}
 				$mess = false;
 			}
 		}
@@ -65,8 +82,9 @@
 			errorLog::errorDB(array($que1));
 			$mess = $e->getMessage();
 		}
+		/* 3. retrive dsr awal */
 		try {
-			$que2 = "SELECT * FROM v_dsr WHERE pel_no='$pel_no'";
+			$que2 = "SELECT * FROM v_dsr WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn";
 			if(!$res2 = mysql_query($que2,$link)){
 				throw new Exception($que2);
 			}
@@ -79,8 +97,8 @@
 					$i++;	
 			}
 					if($i==0){
-					echo "<br /><center class=\"notice\">Data Pelanggan dengan SL ".$pel_no." Tidak memiliki tunggakan</center>";
-					echo $kembali;
+					$mess3	= "<br /><center class=\"notice\">Pelanggan tidak memiliki tunggakan</center>";
+					$form3 	= false;
 				}
 				$mess = false;
 			}
@@ -89,27 +107,14 @@
 			errorLog::errorDB(array($que2));
 			$mess = $e->getMessage();
 		}
+	/* end of iquiry */
+	
+	/* form data pelanggan */
+	if($form1){
+		for($i=0;$i<count($data0);$i++){
+			$row0	= $data0[$i];
+		}	
 ?>
-<link href="css/style.css" rel="stylesheet" type="text/css" />
-<fieldset class="">
-<h3>REDUKSI REKENING </h3>
-<?php	
-	for($i=0;$i<count($data0);$i++){
-		$row0	= $data0[$i];
-				}
-?>
-<input type="hidden" id="<?php echo $errorId; ?>" value="<?php echo $mess; ?>"/>
-<input type="hidden" class="kembali" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
-<input type="hidden" class="kembali" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
-<input type="hidden" class="kembali" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
-<input type="hidden" class="kembali" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
-<input type="hidden" class="kembali" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
-<input type="hidden" class="kembali" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
-<input type="hidden" class="kembali" name="errorId"   	value="<?php echo getToken();	?>"/>
-<input type="hidden" class="kembali" name="dkd_kd" 	value="<?php echo $dkd_kd; 		?>"/>
-<input type="hidden" class="kembali" name="targetId"  	value="content"/>
-<input type="hidden" class="refresh" name="kembali" value="<?php echo $pg;	?>"/>
-<input type="hidden" class="kembali" name="kembali" value="<?php echo $back; ?>"/>
 <table>
 	<tr>
 		<td>No. Pelanggan</td>
@@ -130,19 +135,22 @@
 		<td><?php echo ": ".$row0['kps_ket']; 	?></td>
 	</tr>
 </table>
-<hr />
 <?php	
-	for($i=0;$i<count($data1);$i++){
-		$row1 	= $data1[$i];
-		$klas 	= "table_cell1";
-				if(($i%2) == 0){
-					$klas = "table_cell2";
+		//echo "Data Pelanggan ditemukan<br/>";
+		/* from catatan reduksi */
+		if($form2){
+			// catatan reduksi
+			for($i=0;$i<count($data1);$i++){
+			$row1 	= $data1[$i];
+			$klas 	= "table_cell1";
+					if(($i%2) == 0){
+						$klas = "table_cell2";
+					}
+					$rd_uangair_selisih = $row1['rd_uangair_akhir'] - $row1['rd_uangair_awal'];
+					$rd_total_awal      = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
+					$rd_total_akhir     = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
+					$rd_total           = $rd_total_akhir - $rd_total_awal;
 				}
-				$rd_uangair_selisih = $row1['rd_uangair_akhir'] - $row1['rd_uangair_awal'];
-				$rd_total_awal      = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
-				$rd_total_akhir     = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
-				$rd_total           = $rd_total_akhir - $rd_total_awal;
-				
 ?>
 <h3>REDUKSI SEBELUMNYA</h3>
 <table width="100%" >
@@ -179,75 +187,29 @@
 				<td colspan="8"></td>
   			</tr>
 </table>
-<?php	
-	for($i=0;$i<count($data2);$i++){
-		$row2 	= $data2[$i];
-				}
-				$pemakaian = $row2['rek_stankini'] - $row2['rek_stanlalu'];
-				
-?>
-<h3>REDUKSI</h3>
-<table width="95%" border="1" >
-  <tr bgcolor="#02153F" class="table_head">
-    <td class="center">No</td>
-    <td class="center">Bulan / Tahun</td>
-    <td colspan="2" class="center">Sebelumnya</td>
-    <td colspan="2" class="center">Sekarang (Reduksi)</td>
-    <td colspan="2" class="center">Selisih</td>
-  </tr>
-  <tr class="table_cell1">
-    <td rowspan="5" class="center"><?php echo $row2['rek_nomor']; ?></td>
-    <td rowspan="5" class="center"><?php echo $bulan[$row2['rek_bln']]." ".$row2['rek_thn'];  ?></td>
-    <td>Stan Lalu </td>
-    <td class="right"><?php echo ": ".number_format($row2['rek_stanlalu']); ?></td>
-    <td colspan="2" rowspan="3">
-        <p>Reduksi
-        <input class="cekDSR" name="reduksi" size="5" value="" />
-        Persen </p>
-        <p align="center">
-          <input type="button" name="Button" value="Hitung" class="hitung" onclick="periksa('hitung')"/>   
-        </p>
-    </td>
-    <td rowspan="3">&nbsp;</td>
-    <td rowspan="3">&nbsp;</td>
-  </tr>
-  <tr class="table_cell1">
-    <td>Stan Kini</td>
-    <td class="right"><?php echo ": ".number_format($row2['rek_stankini']); ?></td>
-  </tr>
-  <tr class="table_cell1">
-    <td>Pemakaian</td>
-    <td class="right"><?php echo ": ".number_format($pemakaian); ?></td>
-  </tr>
-  <tr class="table_cell1">
-    <td>Uang Air</td>
-    <td class="right"><?php echo ": ".number_format($row2['rek_uangair']); ?></td>
-    <td>Uang Air </td>
-    <td>:</td>
-    <td>Uang Air :</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr class="table_cell1">
-    <td>NILAI TOTAL </td>
-    <td class="right"><?php echo ": ".number_format($row2['rek_total']); ?></td>
-    <td>NILAI TOTAL</td>
-    <td>:</td>
-    <td>NILAI TOTAL :</td>
-    <td>&nbsp;</td>
-  </tr>
-  <tr bgcolor="#02153F" class="table_validator">
-    <td colspan="8" class="table_cont_btm right"><input name="Submit" type="submit" value="Reduksi" />
-       <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
-    </td>
-  </tr>
-</table>
 <?php
-}
+			//echo "Catatan Reduksi ditemukan<br/>";
+		}
+		
+		/* form reduksi */
+		if($form3){
+			// proses reduksi
 ?>
 
-</fieldset>
-<?			
-break;
+<?php
+			//echo "Reduksi Rekening<br/>";
+		}
+		else{
+			echo $mess3;
+		}		
+	}
+	else{
+		echo $mess1;
+	}
+	
+
+			echo $kembali;
+			break;
 		default:
 			$data1[] = array("rek_bln"=>"1","bln_nama"=>"Januari");
 			$data1[] = array("rek_bln"=>"2","bln_nama"=>"Februari");
@@ -274,7 +236,7 @@ break;
 <input type="hidden" class="cekDSR" name="proses"	 	value="periksaDSR"/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Nomor Pelanggan</div>
-<div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6" value="015470"/></div>
+<div class="span-4">: <input type="text" class="cekDSR" name="pel_no" size="6" maxlength="6" value="000618"/></div>
 <br/><br/>
 <div class="span-4 border">&nbsp;</div>
 <div class="span-4">Bulan - Tahun</div>
