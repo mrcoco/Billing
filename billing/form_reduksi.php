@@ -115,7 +115,9 @@
 			$row0	= $data0[$i];
 		}	
 ?>
-<table>
+<br/>
+<h3>REDUKSI REKENING </h3>
+<table><br/>
 	<tr>
 		<td>No. Pelanggan</td>
 		<td><?php echo ": ".$row0['pel_no']; 	?></td>
@@ -152,8 +154,8 @@
 					$rd_total           = $rd_total_akhir - $rd_total_awal;
 				}
 ?>
-<h3>REDUKSI SEBELUMNYA</h3>
-<table width="100%" >
+	<h3>REDUKSI SEBELUMNYA</h3>
+	<table width="100%" >
 				<tr class="table_head center"> 
 				    <td rowspan="1" class="center">Tanggal</td>				
 				    <td colspan="2" class="center">Sebelumnya</td>
@@ -194,7 +196,67 @@
 		/* form reduksi */
 		if($form3){
 			// proses reduksi
+			for($i=0;$i<count($data2);$i++){
+				$row2 	= $data2[$i];
+					}
+					$pemakaian = $row2['rek_stankini'] - $row2['rek_stanlalu'];
+				
 ?>
+	<h3>REDUKSI</h3>
+	<table width="95%" border="1" >
+	  <tr bgcolor="#02153F" class="table_head">
+		<td class="center">No</td>
+		<td class="center">Bulan / Tahun</td>
+		<td colspan="2" class="center">Sebelumnya</td>
+		<td colspan="2" class="center">Sekarang (Reduksi)</td>
+		<td colspan="2" class="center">Selisih</td>
+	  </tr>
+	  <tr class="table_cell1">
+		<td rowspan="5" class="center"><?php echo $row2['rek_nomor']; ?></td>
+		<td rowspan="5" class="center"><?php echo $bulan[$row2['rek_bln']]." ".$row2['rek_thn'];  ?></td>
+		<td>Stan Lalu </td>
+		<td class="right"><?php echo ": ".number_format($row2['rek_stanlalu']); ?></td>
+		<td colspan="2" rowspan="3">
+			<p>Reduksi
+			<input class="cekDSR" name="reduksi" size="5" value="" />
+			Persen </p>
+			<p align="center">
+			  <input type="button" name="Button" value="Hitung" class="hitung" onclick="periksa('hitung')"/>   
+			</p>
+		</td>
+		<td rowspan="3">&nbsp;</td>
+		<td rowspan="3">&nbsp;</td>
+	  </tr>
+	  <tr class="table_cell1">
+		<td>Stan Kini</td>
+		<td class="right"><?php echo ": ".number_format($row2['rek_stankini']); ?></td>
+	  </tr>
+	  <tr class="table_cell1">
+		<td>Pemakaian </td>
+		<td class="right"><?php echo ":&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($pemakaian); ?></td>
+	  </tr>
+	  <tr class="table_cell1">
+		<td>Uang Air</td>
+		<td class="right"><?php echo ": ".number_format($row2['rek_uangair']); ?></td>
+		<td>Uang Air </td>
+		<td>:</td>
+		<td>Uang Air</td>
+		<td>:</td>
+	  </tr>
+	  <tr class="table_cell1">
+		<td>NILAI TOTAL </td>
+		<td class="right"><?php echo ": ".number_format($row2['rek_total']); ?></td>
+		<td>NILAI TOTAL</td>
+		<td>:</td>
+		<td>NILAI TOTAL :</td>
+		<td>&nbsp;</td>
+	  </tr>
+	  <tr bgcolor="#02153F" class="table_validator">
+		<td colspan="8" class="table_cont_btm right"><input name="Submit" type="submit" value="Reduksi" />
+		   <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
+		</td>
+	  </tr>
+	</table>
 
 <?php
 			//echo "Reduksi Rekening<br/>";
