@@ -105,7 +105,7 @@
 	   <td colspan="8" class="table_cont_btm right">
 		    <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
 		</td>
-		    <br /><center class="notice"> Nilai Reduksi tidak boleh melebihi 50% </center>
+		    <br /><center class="notice"> Maksimal reduksi yang diperbolehkan ialah 50%</center>
 	</table>
 <?php
  }
