@@ -35,6 +35,14 @@
 		<input type="hidden" class="cetak_ba" name="proses" value="cetak_ba"/>
 		<input type="hidden" class="cetak_ba" name="errorUrl" value="form_ba_reduksi.php"/>
 		<input type="button" name="button" value="Cetak Berita Acara" class="cetak_ba" onclick="nonghol('cetak_ba')"/>
+		<input type="hidden" class="kembali" name="appl_kode" 	value="<?php echo _KODE; 		?>"/>
+		<input type="hidden" class="kembali" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
+		<input type="hidden" class="kembali" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+		<input type="hidden" class="kembali" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+		<input type="hidden" class="kembali" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+		<input type="hidden" class="kembali" name="targetUrl" 	value="<?php echo _FILE; 		?>"/>
+		<input type="hidden" class="kembali" name="errorId"   	value="<?php echo getToken();	?>"/>
+		<input type="hidden" class="kembali" name="targetId"  	value="content"/>
 		<input name="batal" class="kembali" type="button" value="Kembali" onclick="buka('kembali')" />
 		</center>
 	
