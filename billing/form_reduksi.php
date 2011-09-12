@@ -19,6 +19,28 @@
 	$kembali= "<input type=\"button\" value=\"Kembali\" onclick=\"buka('kembali')\"/>";
 	
 	switch($proses){
+		case "proses_reduksi":
+		
+		?>
+		
+		<br /><center class="notice">Poses Reduksi Berhasil</center>
+		<center>
+		<input type="hidden" class="cetak_ba" name="appl_kode" 	value="<?php echo _KODE; 	    ?>"/>
+		<input type="hidden" class="cetak_ba" name="appl_name"	value="<?php echo _NAME; 		?>"/>
+		<input type="hidden" class="cetak_ba" name="appl_file" 	value="<?php echo _FILE; 		?>"/>
+		<input type="hidden" class="cetak_ba" name="appl_proc" 	value="<?php echo _PROC; 		?>"/>
+		<input type="hidden" class="cetak_ba" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
+		<input type="hidden" class="cetak_ba" name="targetUrl" value="<?php echo _FILE;     	?>"/>
+		<input type="hidden" class="cetak_ba" name="targetId" value="content"/>
+		<input type="hidden" class="cetak_ba" name="proses" value="cetak_ba"/>
+		<input type="hidden" class="cetak_ba" name="errorUrl" value="form_ba_reduksi.php"/>
+		<input type="button" name="button" value="Cetak Berita Acara" class="cetak_ba" onclick="nonghol('cetak_ba')"/>
+		<input name="batal" class="kembali" type="button" value="Kembali" onclick="buka('kembali')" />
+		</center>
+	
+		<?php
+		break;
+		
 		case "hitung":
 		$pemakaian = $rek_stankini - $rek_stanlalu;
 		$rek_total = $rek_uangair + $rek_beban;
@@ -26,6 +48,8 @@
 		$rek_selisihuangair = $rek_uangair - $rek_reduksiuangair;
 		$rek_reduksitotal = $rek_reduksiuangair + $rek_beban *($beban_tetap);
 		$rek_selisihtotal = $rek_total - $rek_reduksitotal;
+		
+		
 		
 	
 ?>
@@ -97,8 +121,17 @@
 	  if($reduksi<=50) {
 	  ?>
 		<td colspan="8" class="table_cont_btm right">
-			<input name="Submit" type="submit" value="Reduksi" />
-		   <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
+			<input name="Submit" type="submit" value="Reduksi" onclick="buka('proses_reduksi')" />
+			<input type="hidden" class="kembali" name="appl_kode" value="<?php echo _KODE; 		?>"/>
+			<input type="hidden" class="proses_reduksi" name="appl_kode" 	value="<?php echo _KODE; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="appl_name" 	value="<?php echo _NAME; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="appl_file" 	value="<?php echo _FILE; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="appl_proc" 	value="<?php echo _PROC; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="appl_tokn" 	value="<?php echo _TOKN; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
+			<input type="hidden" class="proses_reduksi" name="targetId" 	value="content"/>
+			<input type="hidden" class="proses_reduksi" name="proses"	 	value="proses_reduksi"/>
+		    <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
 		</td>
 	  </tr>
 	  <?php } else { ?>

@@ -1,100 +1,79 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-<title>Berita Acara Reduksi Rekening</title>
-<link href="css/style.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-<!--
-.style1 {font-size: 12px}
--->
-</style>
-</head>
-<body >
-			
+<?php
+	$formId = getToken();
+?>
+<div id="<?php echo $formId; ?>" class="peringatan">
+<div class="pesan form-5">
+<div class="span-14 right large">[<a title="Tutup jendela ini" onclick="tutup('<?php echo $formId; ?>')">Tutup</a>]</div>
+<h3>Cetak Data Pelanggan</h3>
+<hr/><table width="100%" border="0" align="center"> 
+				<tr class="form_cell">
+				  <td ><img src="images/logorekeningkecil.gif" width="130" height="78" border="0" align="left"></td> 
+				<td align="right"><h2><b>PDAM KABUPATEN BANDUNG</b></h2></td> 
+</tr> 
  			
-				<table width="100%" border="0" align="center" bgcolor="#FFFFFF">				
-				<tr class="form_cell">
-				  <td class="center"><div align="left"><img src="images/logorekeningkecil.gif" width="150" height="91"><h2> <span class="prepend-23 prepend-top">PDAM KABUPATEN BANDUNG</span></h2></div></td>
-				  </tr>
-				<tr class="form_cell">
-				<td class="center"><h1 align="center"><b> Berita Acara Reduksi Rekening </b></h1>
-				  <hr> </td>
+				<table width="700%" border="0" align="center">				
+				<tr class="form_cell"> 
+				<td align="center"> <h2><b>Berita Acara Reduksi Rekening </b></h2>
+				  <hr></td> 
 				</tr>				 				 
 				<tr> 
-					<td >
-				    <table width="70%">
-				    		<tr class="form_cell">
-				    		<td width="34%" class="table_cell1 style1" > No. Pelanggan</td> 
-				    		<td width="66%" class="table_cell1">:</td>                           			
-				    		<tr class="form_cell"><td class="table_cell1 style1" >Nama</td>	    
-				    		<td class="table_cell1"> : </td>        	                
-				    		<tr class="form_cell"><td class="table_cell1 style1" >Bulan-Tahun</td>   
-				    		<td class="table_cell1"> : 	</td>				
-				    		<tr class="form_cell">
-				    		<td class="table_cell1 style1" >Tanggal</td>           
-				    		<td class="table_cell1"> :	</td>      
-						</tr>             
+					<td > 
+				    <table width="100%" > 
+				    		<tr class="form_cell"><td >No. Pelanggan</td> <td> : 000618</td>                           			
+				    		<tr class="form_cell"><td >Nama</td>	    <td> : ASEP SUKANDAR,H</td>        	
+				    		<tr class="form_cell"><td >Bulan-Tahun</td>   <td> : Mei 2011</td>				
+				    		<tr class="form_cell"><td >Tgl</td>           <td> : <?php echo $tanggal; ?>	</td>                   
 				   </table>	
 				   
 			<table width="100%" > 	 
 <tr class="table_head" > 
  
-				    <td colspan="2" class="center" >Sebelumnya</td>
-				    <td colspan="3" class="center">Hasil Koreksi</td>
-				    <td colspan="2" class="center" >Selisih</td>
+				    <td colspan="2" >Sebelumnya</td> 
+				    <td colspan="3" >Hasil Koreksi</td> 
+				    <td colspan="2" >Selisih</td> 
 			  </tr>	 
 				  <tr class="table_head"> 				  				    
-				    <td class="center">Uang Air	</td>
-				    <td class="center">Nilai Total 	</td>
-				    <td class="center">Reduksi (%)    </td>
-				    <td class="center">Uang Air	</td>
-				    <td class="center">Nilai Total 	</td>
-				    <td class="center">Uang Air	</td>
-				    <td class="center">Nilai Total 	</td>
-				  </tr>
-						<tr valign="top" class="table_cell1" >
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-						  <td align="right" >1</td>
-			  </tr>
+				    <td>Uang Air	</td> 
+				    <td>Nilai Total 	</td> 
+				    <td>Reduksi (%)    </td> 
+				    <td>Uang Air	</td> 
+				    <td>Nilai Total 	</td> 
+				    <td>Uang Air	</td> 
+				    <td>Nilai Total 	</td> 
+				  </tr>	
+							
+						
 						<tr valign="top" class="table_cell1" >  
  
-				   		    <td align="right" >1234567</td>
-				   		    <td align="right" >123456</td>
-				   		    <td align="right" >1233 </td>   		    
-				     		<td align="right" >12344</td>
-				  		    <td align="right" >13344</td>
-				   		    <td align="right" >123333</td>
-				   		    <td align="right" >jwjeje</td>   		    				     		   
-	          </tr>	
-				  </table>				</tr>
-
+				   		    <td align="right" >27,400 </td> 
+				   		    <td align="right" >37,400 </td> 
+				   		    <td align="right" >20 </td>   		    
+				     		<td align="right" >21,920 </td> 
+				  		    <td align="right" >31,920 </td> 
+				   		    <td align="right" >5,480 </td> 
+				   		    <td align="right" >5,480 </td>   		    				     		   
+				        </tr>	
+				  </table>					</td>												
+				</tr> 
+ 
 	 
-				<tr class="form_cell">
-					<td align="left"></td>
-				</tr>
+				<tr class="form_cell"> 
+					<td align="left">Bandung,09/09/2011 </td> 
+				</tr> 
 				
-				<tr class="form_cell">
-				<td height="204" align="left">
-				
-					<table width="80%" align="center">
-					<tr  class="form_cell">
-					<td  class="table_cell1 left">Diterima Konsumen <br/> 
-					  Tanggal : </td>
-					<td align="Left" class="table_cell1"><b>Kepala Cabang </b></td>
-	 				</tr>
-					<tr>
-					<td align="center" class="table_cell1 center"><br/>
-					  <br/><br/><br/><b>(_______________________)</b></td>
-					<td align="center" class="table_cell1 center"><br/>
-					  <br/><br/><br/><b>(_______________________)</b></td>
-	 				</tr>
-				  </table>			
-				</tr>
- 			</table>
-</body>
-</html>
+				<tr class="form_cell"> 
+				<td align="left"><table width="80%" align="center"> 
+					<tr  class="form_cell"> 
+					<td align="left">Diterima Konsumen <br/> Tanggal : </td> 
+					<td align="Left"><b>Kepala Cabang </b></td> 
+	 				</tr> 
+					<tr> 
+					<td align="center"><br/><br/><br/><b>(_______________________)</b></td> 
+					<td align="center"><br/><br/><br/><b>(_______________________)</b></td> 
+	 				</tr> 
+				  </table>				</td> 
+				</tr> 
+</table> 
+			 				<P CLASS="breakhere">
+</div>
+</div>
