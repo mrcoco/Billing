@@ -78,15 +78,15 @@
     <td>Bulan / Tahun </td>
     <td colspan="3" class="center">Stand Meter </td>
     <td colspan="2" class="center">Rincian Biaya </td>
-    <td>Total</td>
+    <td class="center">Total</td>
   </tr>
   <tr class="table_head center">
   	<td></td>
-    <td>Lalu</td>
-    <td>Kini</td>
-    <td>Pemakaian</td>
-    <td>Uang Air</td>
-    <td>Beban Tetap </td>
+    <td class="center">Lalu</td>
+    <td class="center">Kini</td>
+    <td class="center">Pemakaian</td>
+    <td class="center">Uang Air</td>
+    <td class="center">Beban Tetap </td>
 	<td>&nbsp;</td>
     </tr>
 <?php

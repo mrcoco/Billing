@@ -24,3 +24,133 @@
 2011-07-13 11:39:52;1107131138546554;040201;super;127.0.0.1;CALL p_edit_pelanggan(1107131138546554,'000001','POJOK NO.75/643','1C','10','10110',@mess)
 2011-07-13 11:50:45;1107131138546554;040201;super;127.0.0.1;CALL p_edit_pelanggan(1107131138546554,'000001','POJOK NO.75/643 [FLAG]','1C','10','10121',@mess)
 2011-07-13 16:13:06;1107131613062547;;super;127.0.0.1;File proses belum didefinisikan
+2011-07-28 11:35:39;1107281135389117;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-28 11:37:19;1107281137172866;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-28 11:37:32;1107281137315026;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-28 11:38:30;1107281138295533;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-28 11:40:56;1107281140557329;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-28 11:41:37;1107281141360212;040401;super;127.0.0.1;SELECT * FROM v_data_pelanggan WHERE pel_no='015470'
+2011-07-28 11:42:19;1107281142184526;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-29 07:53:22;1107290753217496;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-07-29 08:14:42;1107290814410403;040401;super;127.0.0.1;SELECT * FROM v_lap_reduksi WHERE pel_no='015470'
+2011-08-01 09:12:28;1108010912284078;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-01 09:20:20;1108010920208937;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-01 09:25:09;1108010925099519;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-01 09:29:32;1108010929320001;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-01 09:42:43;1108010942430334;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-01 10:38:08;1108011038086740;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-02 05:42:26;1108020542269020;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 05:27:13;1108030527139469;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 05:39:42;1108030539427038;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 05:50:46;1108030550461331;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 08:55:38;1108030855389331;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 08:57:01;1108030857013426;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-03 09:55:11;1108030955117388;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-26 08:15:03;1108260814506959;040201;super;127.0.0.1;CALL p_edit_pelanggan(1108260814506959,'001146','BUNTU NO.150A RT.3 RW.20','1C','10','10150',@mess)
+2011-08-26 08:43:04;1108260843048363;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-26 08:53:46;1108260853464937;;super;127.0.0.1;File proses belum didefinisikan
+2011-08-26 10:01:12;1108261001079019;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='015470' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:03:04;1108261002574889;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='015471' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:04:30;1108261004282090;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='015470' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:05:58;1108261005500515;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000001' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:08:03;1108261008007273;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='015470' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:08:27;1108261008162268;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000001' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:14:58;1108261014543372;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000618' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:16:03;1108261016029993;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000618' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:16:40;1108261016314610;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='00098' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:17:18;1108261016462149;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000619' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:20:01;1108261019543993;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000001' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-08-26 10:22:25;1108261022184053;040401;super;127.0.0.1;SELECT * FROM v_dsr WHERE pel_no='000001' AND rek_bln=5 AND rek_thn=2011 ORDER BY rd_tgl
+2011-09-06 05:31:06;1109060531061104;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 07:13:58;1109060713584234;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 07:14:51;1109060714515477;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 09:13:21;1109060913215951;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 09:25:13;1109060925136157;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 09:33:19;1109060933199835;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 09:43:54;1109060943546127;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-06 09:47:47;1109060947479864;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:07:16;1109090607167255;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:17:11;1109090617114191;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:24:32;1109090624323754;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:32:50;1109090632501870;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:35:28;1109090635282598;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 06:40:20;1109090640203921;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 09:20:48;1109090920485615;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 09:57:24;1109090957247413;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:00:02;1109091000023089;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:12:54;1109091012546368;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:13:14;1109091013144417;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:13:15;1109091013150811;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:15:54;1109091015546094;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:15:57;1109091015579231;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:20:52;1109091020527182;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:20:54;1109091020545827;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:21:00;1109091021009431;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:21:07;1109091021073565;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:23:41;1109091023414515;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:23:43;1109091023430929;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:23:47;1109091023471670;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:23:50;1109091023504645;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:13;1109091024135715;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:14;1109091024141791;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:20;1109091024202138;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:21;1109091024219795;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:23;1109091024230211;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:24;1109091024245988;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:38;1109091024380871;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:39;1109091024398247;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:24:44;1109091024447577;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:25:07;1109091025071970;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:25:28;1109091025283598;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:25:30;1109091025304136;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:25:31;1109091025311504;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:25:41;1109091025410979;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:28:26;1109091028262989;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 10:28:27;1109091028274167;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:09:41;1109091109360974;;super;127.0.0.1;File proses : form_ba.reduksi.php tidak ditemukan
+2011-09-09 11:09:54;1109091109543613;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:09:55;1109091109360974;;super;127.0.0.1;File proses : form_ba.reduksi.php tidak ditemukan
+2011-09-09 11:09:58;1109091109581711;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:40:56;1109091140564603;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:49:15;1109091149159101;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:49:19;1109091149191589;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:49:38;1109091149387480;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:49:39;1109091149395689;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:54:00;1109091154007563;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:54:03;1109091154035311;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-09 11:54:04;1109091154047406;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:50:13;1109120550134513;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:50:38;1109120550384359;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:51:36;1109120551362789;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:52:22;1109120552224169;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:53:56;1109120553568585;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:56:04;1109120556042735;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 05:56:05;1109120556053556;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:02:06;1109120602062098;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:02:48;1109120602486327;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:07:01;1109120607010961;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:14:51;1109120614512731;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:27:28;1109120627281925;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:29:40;1109120629408469;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:29:43;1109120629430186;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:29:46;1109120629467528;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:31:15;1109120631154705;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:32:54;1109120632543220;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:33:35;1109120633353888;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:35:52;1109120635529548;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:36:21;1109120636219143;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:37:28;1109120637285276;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:37:30;1109120637307643;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:40:42;1109120640429946;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:40:49;1109120640495519;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:41:32;1109120641327774;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:42:54;1109120642545330;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:49:06;1109120649068425;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:49:59;1109120649590335;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:50:08;1109120650082106;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:50:09;1109120650090374;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 06:52:38;1109120652380669;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 07:11:24;1109120711242212;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 07:11:53;1109120711536249;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 10:27:13;1109121027136343;;super;127.0.0.1;File proses belum didefinisikan
+2011-09-12 10:32:49;1109121032496959;;super;127.0.0.1;File proses belum didefinisikan

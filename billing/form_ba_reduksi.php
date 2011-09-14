@@ -4,7 +4,7 @@
 <div id="<?php echo $formId; ?>" class="peringatan">
 <div class="pesan form-5">
 <div class="span-14 right large">[<a title="Tutup jendela ini" onclick="tutup('<?php echo $formId; ?>')">Tutup</a>]</div>
-<h3>Cetak Data Pelanggan</h3>
+<h3>Cetak Berita Acara Reduksi Rekening</h3>
 <hr/><table width="100%" border="0" align="center"> 
 				<tr class="form_cell">
 				  <td ><img src="images/logorekeningkecil.gif" width="130" height="78" border="0" align="left"></td> 
@@ -58,7 +58,7 @@
  
 	 
 				<tr class="form_cell"> 
-					<td align="left">Bandung,09/09/2011 </td> 
+					<td align="left">Bandung,<?php echo $tanggal; ?></td> 
 				</tr> 
 				
 				<tr class="form_cell"> 
