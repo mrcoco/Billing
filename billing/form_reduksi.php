@@ -54,7 +54,7 @@
 		$rek_total = $rek_uangair + $rek_beban;
 		$rek_reduksiuangair  = $rek_uangair-($rek_uangair*($reduksi/100));
 		$rek_selisihuangair = $rek_uangair - $rek_reduksiuangair;
-		$rek_reduksitotal = $rek_reduksiuangair + $rek_beban *($beban_tetap);
+		$rek_reduksitotal = $rek_uangair - $rek_reduksiuangair + $rek_beban; 
 		$rek_selisihtotal = $rek_total - $rek_reduksitotal;
 		
 		
@@ -65,16 +65,17 @@
 	  <tr bgcolor="#02153F" class="table_head">
 		<td class="center">No</td>
 		<td class="center">Bulan / Tahun</td>
-		<td colspan="2" class="center">Sebelumnya</td>
-		<td colspan="2" class="center">Sekarang (Reduksi)</td>
-		<td colspan="2" class="center">Selisih</td>
+		<td colspan="3" class="center">Sebelumnya</td>
+		<td colspan="3" class="center">Sekarang (Reduksi)</td>
+		<td colspan="3" class="center">Selisih</td>
 	  </tr>
 	  <tr class="table_cell1">
-		<td rowspan="5" class="center"><?php echo $rek_nomor ?></td>
-		<td rowspan="5" class="center"><?php echo $rek_bln." ".$rek_thn;  ?></td>
+		<td rowspan="6" class="center"><?php echo $rek_nomor ?></td>
+		<td rowspan="6" class="center"><?php echo $rek_bln." ".$rek_thn;  ?></td>
 		<td>Stan Lalu </td>
-		<td class="right"><?php echo ": ".number_format($rek_stanlalu); ?></td>
-		<td colspan="2" rowspan="3">
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_stanlalu); ?></td>
+		<td colspan="3" rowspan="3">
 			<p>Reduksi
 			<input class="hitung" name="reduksi" size="5" value="<?php echo $reduksi; ?>" />
 			Persen </p>
@@ -87,6 +88,7 @@
 			  <input type="hidden" class="hitung" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
 			  <input type="hidden" class="hitung" name="targetUrl" value="<?php echo _FILE; ?>"/>
 			  <input type="hidden" class="hitung" name="targetId" value="targetReduksi"/>
+			  <input type="hidden" class="hitung" name="errorId" 	value="<?php echo getToken(); ?>"/>
 			  <input type="hidden" class="hitung" name="rek_nomor" value="<?php echo $rek_nomor; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_bln" value="<?php echo $rek_bln; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_thn" value="<?php echo $rek_thn; ?>"/>
@@ -95,40 +97,57 @@
 			  <input type="hidden" class="hitung" name="rek_uangair" value="<?php echo $rek_uangair; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_beban" value="<?php echo $rek_beban; ?>"/>
 			  <input type="hidden" class="hitung" name="proses" value="hitung"/>
-			</p>
-		</td>
+			</p>		</td>
+		<td rowspan="3">&nbsp;</td>
 		<td rowspan="3">&nbsp;</td>
 		<td rowspan="3">&nbsp;</td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>Stan Kini</td>
-		<td class="right"><?php echo ": ".number_format($rek_stankini); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_stankini); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>Pemakaian </td>
-		<td class="right"><?php echo ":&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($pemakaian); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($pemakaian); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
+	    <td colspan="3"><hr /></td>
+	    <td>&nbsp;</td>
+	    <td class="right">&nbsp;</td>
+	    <td class="right">&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td class="right">&nbsp;</td>
+	    <td class="right">&nbsp;</td>
+      </tr>
+	  <tr class="table_cell1">
 		<td>Uang Air</td>
-		<td class="right"><?php echo ": ".number_format($rek_uangair); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_uangair); ?></td>
 		<td>Uang Air </td>
-		<td><?php echo ": ".number_format($rek_reduksiuangair); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_reduksiuangair); ?></td>
 		<td>Uang Air</td>
-		<td><?php echo ": ".number_format($rek_selisihuangair); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_selisihuangair); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>NILAI TOTAL </td>
-		<td class="right"><?php echo ": ".number_format($rek_total); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_total); ?></td>
 		<td>NILAI TOTAL</td>
-		<td><?php echo ": ".number_format($rek_reduksitotal); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($rek_reduksitotal); ?></td>
 		<td>NILAI TOTAL</td>
-		<td><?php echo": ".number_format($rek_selisihtotal); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo" ".number_format($rek_selisihtotal); ?></td>
 	  </tr>
 	  <tr bgcolor="#02153F" class="table_validator">
 	  <?php 
 	  if($reduksi<=50) {
 	  ?>
-		<td colspan="8" class="table_cont_btm right">
+		<td colspan="11" class="table_cont_btm right">
 			<input name="Submit" type="submit" value="Reduksi" onclick="buka('proses_reduksi')" />
 			<input type="hidden" class="kembali" name="appl_kode" value="<?php echo _KODE; 		?>"/>
 			<input type="hidden" class="proses_reduksi" name="appl_kode" 	value="<?php echo _KODE; ?>"/>
@@ -139,14 +158,13 @@
 			<input type="hidden" class="proses_reduksi" name="targetUrl" 	value="<?php echo _FILE; ?>"/>
 			<input type="hidden" class="proses_reduksi" name="targetId" 	value="content"/>
 			<input type="hidden" class="proses_reduksi" name="proses"	 	value="proses_reduksi"/>
-		    <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
-		</td>
+		    <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />		</td>
 	  </tr>
 	  <?php } else { ?>
-	   <td colspan="8" class="table_cont_btm right">
+	   <td colspan="11" class="table_cont_btm right">
 		    <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
-		</td>
-		    <br /><center class="notice"> Maksimal reduksi yang diperbolehkan ialah 50%</center>
+			<input type="hidden" id="<?php echo $errorId; ?>" value="Maksimal reduksi yang diperbolehkan ialah 50 persen"/>		</td>
+		   <!-- <br /><center class="notice"> Maksimal reduksi yang diperbolehkan ialah 50%</center>-->
 	</table>
 <?php
  }
@@ -294,7 +312,7 @@
 				    <td colspan="2" class="center">Sebelumnya</td>
 				    <td colspan="3" class="center">Hasil Koreksi</td>
 				    <td colspan="2" class="center">Selisih</td>
- 					 </tr>
+	  </tr>
 				  <tr class="table_head"> 			
 				    <td></td>	  				    
 				    <td class="center">Uang Air</td>
@@ -304,7 +322,7 @@
 				    <td class="center">Nilai Total</td>
 				    <td class="center">Uang Air</td>
 				    <td class="center">Nilai Total</td>
-  					</tr>
+	  </tr>
 
 						<tr valign="top" class="<?php echo $klas; ?>" >  
 					 	    <td class="center"><?php echo $row1['rd_tgl']; ?></td>											 	    					
@@ -342,16 +360,17 @@
 	  <tr bgcolor="#02153F" class="table_head">
 		<td class="center">No</td>
 		<td class="center">Bulan / Tahun</td>
-		<td colspan="2" class="center">Sebelumnya</td>
-		<td colspan="2" class="center">Sekarang (Reduksi)</td>
-		<td colspan="2" class="center">Selisih</td>
+		<td colspan="3" class="center">Sebelumnya</td>
+		<td colspan="3" class="center">Sekarang (Reduksi)</td>
+		<td colspan="3" class="center">Selisih</td>
 	  </tr>
 	  <tr class="table_cell1">
-		<td rowspan="5" class="center"><?php echo $row2['rek_nomor']; ?></td>
-		<td rowspan="5" class="center"><?php echo $bulan[$row2['rek_bln']]." ".$row2['rek_thn'];  ?></td>
+		<td rowspan="6" class="center"><?php echo $row2['rek_nomor']; ?></td>
+		<td rowspan="6" class="center"><?php echo $bulan[$row2['rek_bln']]." ".$row2['rek_thn'];  ?></td>
 		<td>Stan Lalu </td>
-		<td class="right"><?php echo ": ".number_format($row2['rek_stanlalu']); ?></td>
-		<td colspan="2" rowspan="3">
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($row2['rek_stanlalu']); ?></td>
+		<td colspan="3" rowspan="3">
 			<p>Reduksi
 			<input class="hitung" name="reduksi" size="5" value="0"/>
 			Persen </p>
@@ -364,6 +383,7 @@
 			  <input type="hidden" class="hitung" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
 			  <input type="hidden" class="hitung" name="targetUrl"  value="<?php echo _FILE; ?>"/>
 			  <input type="hidden" class="hitung" name="targetId"   value="targetReduksi"/>
+			  <input type="hidden" class="hitung" name="errorId"  value="<?php echo getToken(); ?>"/>
 			  <input type="hidden" class="hitung" name="rek_nomor"  value="<?php echo $row2['rek_nomor']; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_bln"    value="<?php echo $bulan[$row2['rek_bln']]; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_thn"    value="<?php echo $row2['rek_thn']; ?>"/>
@@ -372,39 +392,55 @@
 			  <input type="hidden" class="hitung" name="rek_uangair"  value="<?php echo $row2['rek_uangair']; ?>"/>
 			  <input type="hidden" class="hitung" name="rek_beban" value="<?php echo $rek_beban; ?>"/>
 			  <input type="hidden" class="hitung" name="proses" value="hitung"/>
-			</p>
-		</td>
+			</p>		</td>
+		<td rowspan="3">&nbsp;</td>
 		<td rowspan="3">&nbsp;</td>
 		<td rowspan="3">&nbsp;</td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>Stan Kini</td>
-		<td class="right"><?php echo ": ".number_format($row2['rek_stankini']); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($row2['rek_stankini']); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>Pemakaian </td>
-		<td class="right"><?php echo ":&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".number_format($pemakaian); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($pemakaian); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
+	    <td colspan="3"><hr /></td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+	    <td>&nbsp;</td>
+      </tr>
+	  <tr class="table_cell1">
 		<td>Uang Air</td>
-		<td class="right"><?php echo ": ".number_format($row2['rek_uangair']); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($row2['rek_uangair']); ?></td>
 		<td>Uang Air </td>
-		<td><?php echo ": ".number_format(0); ?></td>
+		<td>:</td>
+		<td><?php echo " ".number_format(0); ?></td>
 		<td>Uang Air</td>
-		<td><?php echo ": ".number_format(0); ?></td>
+		<td>:</td>
+		<td><?php echo " ".number_format(0); ?></td>
 	  </tr>
 	  <tr class="table_cell1">
 		<td>NILAI TOTAL </td>
-		<td class="right"><?php echo ": ".number_format($row2['rek_total']); ?></td>
+		<td class="right">:</td>
+		<td class="right"><?php echo " ".number_format($row2['rek_total']); ?></td>
 		<td>NILAI TOTAL</td>
-		<td><?php echo ": ".number_format(0); ?></</td>
+		<td>:</td>
+		<td><?php echo " ".number_format(0); ?></td>
 		<td>NILAI TOTAL</td>
-		<td><?php echo ": ".number_format(0); ?></td>
+		<td>:</td>
+		<td><?php echo " ".number_format(0); ?></td>
 	  </tr>
 	  <tr bgcolor="#02153F" class="table_validator">
-		<td colspan="8" class="table_cont_btm right"><!--<input name="Submit" type="submit" value="Reduksi" />-->
-		   <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />
-		</td>
+		<td colspan="11" class="table_cont_btm right"><!--<input name="Submit" type="submit" value="Reduksi" />-->
+		   <input name="batal" class="kembali" type="button" value="Batal" onclick="buka('kembali')" />		</td>
 	  </tr>
 	</table>
 	</div>
