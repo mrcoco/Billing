@@ -52,12 +52,7 @@
 		break;
 		
 		case "hitung":
-		$pemakaian = $rek_stankini - $rek_stanlalu;
-		$rek_total = $rek_uangair + $rek_beban;
-		$rek_reduksiuangair  = $rek_uangair-($rek_uangair*($reduksi/100));
-		$rek_selisihuangair = $rek_uangair - $rek_reduksiuangair;
-		$rek_reduksitotal = $rek_reduksiuangair + $rek_beban *($beban_tetap);
-		$rek_selisihtotal = $rek_total - $rek_reduksitotal;
+		
 		
 		
 ?>
@@ -201,7 +196,26 @@
 				errorLog::errorDB(array($que1));
 				$mess = $e->getMessage();
 			}
-		/* 3. retrive dsr awal */
+			
+			/** 3. retrieve catatan klaim */
+			try{
+				$que4 = "SELECT *FROM v_lap_klaim WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn ORDER BY cl_tgl";
+				if(!$res4 = mysql_query($que4,$link)){
+					throw new Exception($que4);
+				}
+				else{
+					while($row4 = mysql_fetch_array($res4)){
+						$data4[] = $row4;
+					}
+					$mess 	= false;
+				}
+			}
+			catch (Exception $e){
+				errorLog::errorDB(array($que4));
+				$mess = $e->getMessage();
+			}
+			
+		/* 4. retrive dsr awal */
 		try {
 			//$que2 = "SELECT * FROM v_dsr WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn";
 			$que2 = "SELECT * FROM tm_rekening WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn LIMIT 1";
@@ -259,19 +273,16 @@
 </table>
 <?php	
 		//echo "Data Pelanggan ditemukan<br/>";
-		/* from catatan reduksi */
+		/* from catatan klaim */
 		if($form2){
-			// catatan reduksi
-			for($i=0;$i<count($data1);$i++){
-			$row1 	= $data1[$i];
+			// catatan klaim
+			for($i=0;$i<count($data4);$i++){
+			$row4 	= $data4[$i];
 			$klas 	= "table_cell1";
 					if(($i%2) == 0){
 						$klas = "table_cell2";
 					}
-					$rd_uangair_selisih = $row1['rd_uangair_akhir'] - $row1['rd_uangair_awal'];
-					$rd_total_awal      = $row1['rd_uangair_awal'] + $beban_tetap + $angsuran ;
-					$rd_total_akhir     = $row1['rd_uangair_akhir'] + $beban_tetap + $angsuran ;
-					$rd_total           = $rd_total_akhir - $rd_total_awal;
+						$cl_uangair_selisih = $row4['cl_uangair_akhir'] - $row4['cl_uangair_awal'];
 				}
 ?>
 	<h3>CATATAN</h3>
@@ -287,13 +298,13 @@
 	</tr>
 
 						<tr valign="top" class="<?php echo $klas; ?>" >  
-					 	    <td class="center"><?php echo $row1['rd_tgl']; ?></td>											 	    					
-					 	    <td class="right"><?php echo number_format($row1['rd_uangair_awal']); ?></td>
-				   		    <td class="right"><?php echo number_format($rd_total_awal); ?></td>
-				   		    <td class="right"><?php echo number_format($row1['rd_nilai']); ?></td>
-				   		    <td class="right"><?php echo number_format($row1['rd_uangair_akhir']); ?></td>   		    
-				     		<td class="right"><?php echo number_format($rd_total_akhir); ?></td>
-				  		    <td class="right"><?php echo number_format($rd_uangair_selisih); ?></td>
+					 	    <td class="center"><?php echo $row4['tgl_klaim']; ?></td>											 	    					
+					 	    <td class="right"><?php echo number_format($row4['cl_stanlalu_awal']); 	?></td>
+				   		    <td class="right"><?php echo number_format($row4['cl_stankini_awal']);	?></td>
+				   		    <td class="right"><?php echo number_format($row4['cl_stankini_akhir']);	?></td>
+				   		    <td class="right"><?php echo number_format($row4['cl_uangair_awal']);	?></td>   		    
+				     		<td class="right"><?php echo number_format($row4['cl_uangair_akhir']);	?></td>
+				  		    <td class="right"><?php echo number_format($cl_uangair_selisih);		?></td>
 				   		    
                        </tr>
 
@@ -306,14 +317,13 @@
 			//echo "Catatan Reduksi ditemukan<br/>";
 		}
 		
-		/* form reduksi */
+		/* form klaim */
 		if($form3){
-			// proses reduksi
+			// proses klaim
 			for($i=0;$i<count($data2);$i++){
 				$row2 	= $data2[$i];
 					}
-					$pemakaian = $row2['rek_stankini'] - $row2['rek_stanlalu'];
-					$rek_beban = $row2['rek_adm'] + $row2['rek_meter'];
+					
 				
 ?>
 	<h3>KOREKSI</h3>
