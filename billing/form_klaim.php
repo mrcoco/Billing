@@ -358,7 +358,6 @@
 					  	<input type="hidden" class="hitung" name="pakai_kini"    value="<?php echo $pakai_kini; ?>"/>
 					  	<input type="hidden" class="hitung" name="rek_uangair"    value="<?php echo $row3['rek_uangair']; ?>"/>
 					  	<input type="hidden" class="hitung" name="rek_total" value="<?php echo $row3['rek_total']; ?>"/>
-						<input type="hidden" class="hitung" name="alasan" value="<?php echo pilihan($data2,$parm2); ?>"/>
 						<input type="hidden" class="hitung" name="proses" value="hitung"/>
 					</td>
 					<td>Stan Kini</td>
