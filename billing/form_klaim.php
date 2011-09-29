@@ -65,19 +65,19 @@
 	</tr>
 	<tr class="table_cell1">
 		<td class="height-1" style="padding-top:6px">Stan Lalu</td>
-		<td>: <?php echo number_format($row3['rek_stanlalu']); ?></td>
+		<td>: <?php echo number_format($rek_stanlalu); ?></td>
 		<td colspan="4" rowspan="6" id="<?php echo $formId; ?>">
 			<table>
 				<tr class="table_cell1">
 					<td class="height-1">Stan Lalu</td>
-					<td>: <?php echo number_format($row3['rek_stanlalu']); ?></td>
+					<td>: <?php echo number_format($rek_stanlalu); ?></td>
 					<td>Stan Lalu</td>
 					<td>: 0</td>
 				</tr>
 				<tr class="table_cell2">
 					<td class="height-1">Stan Kini</td>
 					<td>
-						: <input type="text" class="reduksi hitung" name="rek_stanklaim" size="4" value="<?php echo $row3['rek_stankini']; ?>"/>
+						: <input type="text" class="reduksi hitung" name="rek_stanklaim" size="4" value="<?php echo $rek_stankini; ?>"/>
 						<input type="button" class="form_button" value="Hitung" onclick="buka('hitung')"/>
 						<input type="hidden" class="kembali" name="appl_kode" value="<?php echo _KODE; 		    ?>"/>
 						<input type="hidden" class="hitung" name="appl_name" 	value="<?php echo _NAME; 		?>"/>
@@ -99,13 +99,13 @@
 				</tr>
 				<tr class="table_cell2">
 					<td class="height-1">Uang Air</td>
-					<td>: <?php echo number_format($row3['rek_uangair']);	?></td>
+					<td>: <?php echo number_format($rek_uangair);	?></td>
 					<td>Uang Air</td>
 					<td>: 0</td>
 				</tr>
 				<tr class="table_cell1">
 					<td class="height-1">Nilai Total</td>
-					<td>: <?php echo number_format($row3['rek_total']);		?></td>
+					<td>: <?php echo number_format($rek_total);		?></td>
 					<td>Nilai Total</td>
 					<td>: 0</td>
 				</tr>
@@ -114,16 +114,16 @@
 		<td rowspan="6"><?php echo pilihan($data2,$parm2); ?></td>
 	</tr>
 	<tr class="table_cell2">
-		<td class="height-1">Stan Kini</td><td>: <?php echo number_format($row3['rek_stankini']);	?></td>
+		<td class="height-1">Stan Kini</td><td>: <?php echo number_format($rek_stankini);	?></td>
 	</tr>
 	<tr class="table_cell1">
 		<td class="height-1">Pemakaian</td><td>: <?php echo number_format($pakai_kini); 			?></td>
 	</tr>
 	<tr class="table_cell2">
-		<td class="height-1">Uang Air</td><td>: <?php echo number_format($row3['rek_uangair']); 	?></td>
+		<td class="height-1">Uang Air</td><td>: <?php echo number_format($rek_uangair); 	?></td>
 	</tr>
 	<tr class="table_cell1">
-		<td class="height-1">Nilai Total</td><td>: <?php echo number_format($row3['rek_total']); 	?></td>
+		<td class="height-1">Nilai Total</td><td>: <?php echo number_format($rek_total); 	?></td>
 	</tr>
 	<tr class="table_cell2">
 		<td colspan="7"></td>
@@ -217,25 +217,19 @@
 			
 		/* 4. retrive dsr awal */
 		try {
-			//$que2 = "SELECT * FROM v_dsr WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn";
-			$que2 = "SELECT * FROM tm_rekening WHERE pel_no='$pel_no' AND rek_bln=$rek_bln AND rek_thn=$rek_thn LIMIT 1";
+			$que2 = "CALL p_get_drd_awal('$pel_no',$rek_bln,$rek_thn,@rek_gol,@rek_stankini,@rek_stanlalu,@rek_uangair,@rek_total,@status)";
+			$que3 = "SELECT @rek_gol AS rek_gol,@rek_stankini AS rek_stankini,@rek_stanlalu AS rek_stanlalu,@rek_uangair AS rek_uangair,@rek_total AS rek_total,@status AS status";
 			if(!$res2 = mysql_query($que2,$link)){
 				throw new Exception($que2);
 			}
 			else{
-				$i = 0;
-				while($row2 = mysql_fetch_array($res2)){
-					$data2[] = $row2;
-					$beban_tetap = $row2['rek_adm'] + $row2['rek_meter'];
-					$angsuran = $row2['rek_angsuran'];
-					$i++;	
+				$res3 		= mysql_query($que3,$link);
+					$row3 		= mysql_fetch_array($res3);
+					$pakai_kini	= $row3['rek_stankini'] - $row3['rek_stanlalu'];
+					$rek_beban	= $row3['rek_total'] - $row3['rek_uangair'];
+					$mess 		= false;
 			}
-					if($i==0){
-					$mess3	= "<br /><center class=\"notice\">Pelanggan tidak memiliki tunggakan</center>";
-					$form3 	= false;
-				}
-				$mess = false;
-			}
+				
 		}
 			catch (Exception $e){
 			errorLog::errorDB(array($que2));
@@ -358,6 +352,13 @@
 						<input type="hidden" class="hitung" name="appl_tokn" 	value="<?php echo _TOKN; 		?>"/>
 						<input type="hidden" class="hitung" name="targetUrl"  value="<?php echo _FILE; ?>"/>
 						<input type="hidden" class="hitung" name="targetId"   value="targetReduksi"/>
+						<input type="hidden" class="hitung" name="errorId"  value="<?php echo getToken(); ?>"/>
+					  	<input type="hidden" class="hitung" name="rek_stanlalu"  value="<?php echo $row3['rek_stanlalu']; ?>"/>
+						<input type="hidden" class="hitung" name="rek_stankini"    value="<?php echo $row3['rek_stankini']; ?>"/>
+					  	<input type="hidden" class="hitung" name="pakai_kini"    value="<?php echo $pakai_kini; ?>"/>
+					  	<input type="hidden" class="hitung" name="rek_uangair"    value="<?php echo $row3['rek_uangair']; ?>"/>
+					  	<input type="hidden" class="hitung" name="rek_total" value="<?php echo $row3['rek_total']; ?>"/>
+						<input type="hidden" class="hitung" name="alasan" value="<?php echo pilihan($data2,$parm2); ?>"/>
 						<input type="hidden" class="hitung" name="proses" value="hitung"/>
 					</td>
 					<td>Stan Kini</td>
